@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'CartoonBlocksChristmas';
+  src: url('font/CartoonBlocksChristmas.eot'); /* IE9 Compat Modes */
+  src: url('font/CartoonBlocksChristmas.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('font/CartoonBlocksChristmas.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/CartoonBlocksChristmas.woff') format('woff'), /* Pretty Modern Browsers */
+       url('font/CartoonBlocksChristmas.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('font/CartoonBlocksChristmas.svg#svgFontName') format('svg'); /* Legacy iOS */
+}

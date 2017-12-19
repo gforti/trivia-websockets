@@ -1,0 +1,20 @@
+{
+  "name": "trivia",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node index",
+    "dev:pc": "SET DEBUG=socket.io* & nodemon index",
+    "dev:mac": "DEBUG=socket.io* & nodemon index"
+  },
+  "dependencies": {
+    "bulma": "^0.6.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "localtunnel": "^1.8.3",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
