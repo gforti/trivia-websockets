@@ -35,6 +35,10 @@ On a windows prompt you should be able to check your network IP address with
 ```sh
 $ ipconfig
 ```
+MAC
+```sh
+$ ifconfig | grep "inet " | grep -v 127.0.0.1
+```
 
 The following IP address with `:3000` as the host should give you access on your mobile device
 
