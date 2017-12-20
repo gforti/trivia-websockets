@@ -6,7 +6,7 @@ will use their device to to answer the questions.
 **Note** that each device runs javascript faster or slower so there can be a delay on when the questions will show up.
 Each device when the timer runs out will send a single to the host to know everyone has had the chance to answer or not.
 
-If it is a bit slow do not panic it will send the single.
+If it is a bit slow do not panic it will send the signal.
 
 If the user disconnects then it does not need to wait for that signal.  The user can rejoin.
 
