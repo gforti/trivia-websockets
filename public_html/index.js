@@ -30,6 +30,9 @@ var timeToEnjoyAnswerMs = 10000; //10secs // how long players have to read answe
 var answerData;
 var players = {};
 
+var gameInProgress = false
+var phase
+
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -108,7 +111,8 @@ io.on('connection', function (socket) {
     addedUser = true;
     socket.emit('login', {
         userid: socket.id,
-        numUsers: Object.keys(players).length
+        numUsers: Object.keys(players).length,
+        gameInProgress: gameInProgress
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
@@ -143,7 +147,7 @@ io.on('connection', function (socket) {
 
     socket.on('question timer', function () {
         if (!players[socket.id]) return
-        if ( !players[socket.id].questionReady ) {
+        if ( phase === 1 ) {
             players[socket.id].questionReady = true
         } else {
             players[socket.id].questionDone = true
@@ -183,6 +187,7 @@ function resetPlayerWinners() {
 
 
 function resetPlayerNewRound() {
+    gameInProgress = true
     Object.keys(players)
                     .forEach(id => {
                         players[id].points = 0
@@ -191,7 +196,7 @@ function resetPlayerNewRound() {
 
 function emitNewQuestion() {
     resetPlayerWinners()
-
+    phase = 1
     io.sockets.emit('question', {
         totalTime: nextQuestionDelayMs,
         endTime: new Date().getTime() + nextQuestionDelayMs,
@@ -225,6 +230,7 @@ function checkQuestionReady(time) {
 
                 curQuestion++;
 
+               phase = 2
                checkQuestionTimer()
             }
         } else {
@@ -239,7 +245,7 @@ function checkQuestionTimer(time) {
     time = time || timeToAnswerMs
     setTimeout(function(){
         var canEmitAnswer = Object.keys(players).every(key =>{
-            return players[key].questionDone === true && players[key].questionReady === true
+            return players[key].questionDone === true
         });
         if (canEmitAnswer) {
             emitAnswer();
@@ -277,10 +283,11 @@ function emitAnswer() {
        }, timeToEnjoyAnswerMs);
     } else {
         // todo: get all winners or set game to give point to just first who answers
+        // maybe just get a list of winners and display the winners differently
         var winner = Object.keys(players)
                     .map(key => players[key])
                     .reduce((prev, current) => (prev.points > current.points) ? prev : current, {})
-
+        gameInProgress = false
             io.sockets.emit('winner', winner);
     }
 }

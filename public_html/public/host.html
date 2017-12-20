@@ -807,15 +807,11 @@
             function gameStarting() {
                 document.querySelector('.main-wrapper').classList.add('is-hidden')               
                 document.querySelector('.where').classList.add('is-hidden')               
+                document.querySelector('.players').classList.add('is-hidden')               
                 document.querySelector('section.hero').classList.remove('is-hidden')
             }
             
-             socket.on('hoster', function (data) {
-              // Display the welcome message
-              var message = "theHost!";
-              console.log(message, data);
-            });
-            
+                     
             
             socket.on('winner', function(data){
                 stopTrack();
@@ -825,10 +821,10 @@
            
              function displayWinner(data) {
                  document.querySelector('.game-start').innerHTML = `
-                 <p class="has-text-centered"><img src="${data.icon}" /></p>
+                 <p class="has-text-centered"><img src="${data && data.icon ? data.icon : 'icons/1.png'}" /></p>
                  <div class="txt">
                     <p>Winner</p>
-                    <p>${data.username}</p>
+                    <p>${data && data.username ? data.username : 'unknown'}</p>
                 </div>   
                 `
              }
@@ -841,7 +837,7 @@
               document.querySelector('.where h1').innerHTML = data.gameUrl
               updateUsers(data)  
              
-              console.log('info', data)
+             
             });
             
             socket.on('user joined', function (data) {
@@ -858,10 +854,10 @@
             socket.on('correct answer', function (data) {
               
               
-              progress.value = 100;
-               updateProgressBar(data)
-              displayAnswer(data)
-              updateQuestionsLeft(data)
+                progress.value = 100;
+                updateProgressBar(data)
+                displayAnswer(data)
+                updateQuestionsLeft(data)
               
             });
             
@@ -900,7 +896,7 @@
                 document.querySelector('.leader').innerHTML = `
                         <div>
                             <p class="heading">${data && data.username ? data.username : 'unknown'}</p>
-                            <p class="title"><img src="${data && data.icon ? data.icon : 'icon/1.png' }" class="image is-48x48" /> </p>
+                            <p class="title"><img src="${data && data.icon ? data.icon : 'icons/1.png' }" class="image is-48x48" /> </p>
                         </div> `;
             }
             
@@ -908,7 +904,7 @@
                     document.querySelector('.points').innerHTML = `
                         <div>
                             <p class="heading">Answered</p>
-                            <p class="title">${data ? data.points : 0}</p>
+                            <p class="title">${data && data.points ? data.points : 0}</p>
                         </div> `;
             }
             
@@ -942,7 +938,7 @@
             
             
             
-            var winnerTrack = new Audio(`tracks/winner.mp3`)
+        var winnerTrack = new Audio(`tracks/winner.mp3`)
          var tracks = [];
          for (let i = 1; i < 7; i++)
          tracks.push(new Audio(`tracks/epic${i}.mp3`));
@@ -974,9 +970,6 @@
          window.addEventListener('DOMContentLoaded', playTrack);
          
          
-         
-         
-            
             
         </script>
     </body>
