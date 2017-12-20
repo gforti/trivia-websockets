@@ -745,16 +745,19 @@
          
         <section class="hero is-success is-fullheight is-hidden">
             <div class="hero-head">
-            <nav class="level is-mobile">         
-                <div class="level-item has-text-centered leader"></div> 
-                <div class="level-item has-text-centered">
-                    <div><p class="title">Leader </p></div>
+            <nav class="level is-mobile">  
+                 <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Location</p>
+                        <p class="title where2"></p>
+                    </div>
                 </div>
+                <div class="level-item has-text-centered leader"></div>               
                 <div class="level-item has-text-centered points"></div>
                 <div class="level-item has-text-centered">
                     <div>
                         <p class="heading">Question</p>
-                    <p class="title remain">?</p>
+                        <p class="title remain">?</p>
                     </div>
                 </div>
             </nav>
@@ -835,6 +838,7 @@
               connected = true;
               
               document.querySelector('.where h1').innerHTML = data.gameUrl
+              document.querySelector('.where2').innerHTML = data.gameUrl
               updateUsers(data)  
              
              
@@ -895,7 +899,7 @@
             function displayLeader(data){
                 document.querySelector('.leader').innerHTML = `
                         <div>
-                            <p class="heading">${data && data.username ? data.username : 'unknown'}</p>
+                            <p class="heading">Leading<br />${data && data.username ? data.username : 'unknown'}</p>
                             <p class="title"><img src="${data && data.icon ? data.icon : 'icons/1.png' }" class="image is-48x48" /> </p>
                         </div> `;
             }
