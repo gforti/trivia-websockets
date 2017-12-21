@@ -10,6 +10,8 @@ If it is a bit slow do not panic it will send the signal.
 
 If the user disconnects then it does not need to wait for that signal.  The user can rejoin.
 
+> Be sure that the browser used is up to date.  On Adorid devices the default web browser might perform better than a 3rd party browser.
+
 # Setup
 
 ## Configure your IP address
