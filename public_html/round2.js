@@ -1,22 +1,37 @@
 module.exports = [{
-    question: "What holiday movie sequel includes a cameo by Donald Trump?",
+    question: "Who tries to stop Christmas from coming, by stealing all things of Christmas",
     choices: [
-        'Home Alone 2',
+        'The Grinch',
         'Home Alone',
         'Home Alone 3',
         'Home Alone 4'
     ],
-    answer: 'Home Alone 2',
-    img: 'trumphomealone2.png'
-},{
-    question: "In the song 'Frosty the Snowman', what made Frosty come to life?",
-    choices: [
-        'An old silk hat',
-        'Magic',
-        'Christmas Miracle',
-        'A bright red scarf'
-    ],
-    answer: 'An old silk hat',
-    img: 'frosty.png'
+    answer: 'The Grinch',
+    img: '.png'
 }
+,{
+    question: "How many ghosts are there in A Christmas Carol?",
+    choices: [
+        'Four',
+        'Three',
+        'None',
+        'Two'
+    ],
+    answer: 'Four',
+    img: '.png'
+}
+,{
+    question: "Stollen is the traditional fruit cake of which country?",
+    choices: [
+        'Germany',
+        '',
+        '',
+        ''
+    ],
+    answer: 'Four',
+    img: '.png'
+}
+
 ];
+
+//https://icebreakerideas.com/christmas-trivia/
