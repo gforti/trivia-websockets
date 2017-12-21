@@ -38,7 +38,7 @@ IPv4 Address. . . . . . . . . . . : 192.x.x.x
 
 > Firewalls could block this from working
 
-**UPDATE** the `host-ip.js` file with this ip address `x.x.x.x` (without :3000) so players can view the address from to host to connect, 
+**UPDATE** the `host-ip.js` file with this ip address `x.x.x.x` (without :3000) so players can view the address from to host to connect
 
 ## Start the server
 
