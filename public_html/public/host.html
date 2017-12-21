@@ -727,7 +727,8 @@
             var socket = io();
             let connected = false;
             
-             let progress = document.querySelector('progress')
+            let progress = document.querySelector('progress')
+            let questionSong = ''
              
             window.addEventListener('load', ()=> {
                 socket.emit('host');
@@ -839,11 +840,23 @@
             function displayQuestion(data){
                 let html = `<h1 class="title is-1">${data.question}</h1>`
                 if ( data.img )
-                    html += `<p class="has-text-centered"><img src="img/${data.img}" /></p>`        
+                    html += `<p class="has-text-centered"><img src="img/${data.img}" /></p>`
+                if ( data.music ) {
+                    stopTrack();
+                    questionSong = data.music
+                    if( triviaTracks.hasOwnProperty(questionSong))
+                        triviaTracks[questionSong].play()
+                }
                 document.querySelector('.question').innerHTML = html
             }
             
             function displayAnswer(data){
+                playTrack()
+                if( triviaTracks.hasOwnProperty(questionSong)) {
+                        triviaTracks[questionSong].pause();
+                        triviaTracks[questionSong].currentTime = 0;
+                        questionSong = ''                        
+                }
                 document.querySelector('.question').innerHTML = `<h1 class="title is-1">${data.correctAnswer}</h1>`
             }
             
@@ -908,11 +921,11 @@
          }
          
          
-         function stopTrack(){
+         function stopTrack() {
              tracks[currentTrack].pause();
          }
          
-         function playTrack(){
+         function playTrack() {
              tracks[currentTrack].play();
          }
          
@@ -925,6 +938,10 @@
          window.addEventListener('DOMContentLoaded', playTrack);
          
          
+        var triviaTracks = {
+            'we-wish-you-a-merry-christmas.mp3': new Audio('trivia-songs/we-wish-you-a-merry-christmas.mp3')
+        }
+        
             
         </script>
     </body>
