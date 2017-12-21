@@ -7,8 +7,10 @@ module.exports = [{
         'December'
     ],
     answer: 'Christmas',
-    img: 'snow.png'
-},{
+    img: 'snow.png',
+    type: 'question'
+},
+{
    question: "Choose the answer correct",
    choices: [
         'Correct',
@@ -17,6 +19,20 @@ module.exports = [{
         'Bad Answer'
     ],
     answer: 'Correct',
-    img: 'snow.png'
+    img: 'snow.png',
+    type: 'question'
+},
+{
+   question: "This is just a test",
+   choices: [
+        'Test',
+        'No',
+        'Do not pick this one',
+        'Wrong Answer'
+    ],
+    answer: 'Test',
+    img: 'snow.png',
+    music: 'we-wish-you-a-merry-christmas.mp3',
+    type: 'song'
 }
 ];

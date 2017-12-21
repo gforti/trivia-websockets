@@ -5,248 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='bulma.css' />
-        <style>
-            
-            .level {
-                font-weight: bold;
-                background-image: linear-gradient(141deg, #ff0561 0%, #ff3860 71%, #ff5257 100%);
-                margin: 0 !important;
-                padding: 1rem;
-            }
-            
-            .login {
-                text-align: center;
-            }
-                       
-            .icons {
-                display: block;
-                padding: 2rem;
-            }
-            .icons img {
-                width: 70px;
-            }
-            
-            .icons input[type="radio"],
-            .choices input[type="radio"]
-            {
-                display: none;
-            }
-            
-            .icons input[type=radio] ~ img,
-            .choices input[type=radio] + label{
-                font-size: 2rem;
-                color: white;
-                padding: 0.4rem;
-                margin: 0.6rem;
-             }
-            
-            .icons input[type=radio]:checked ~ img,            
-            .choices input[type=radio]:checked + label {
-                background-color: red;
-             }
-             
-             
-            input:required:invalid, 
-            select:required:invalid,
-            textarea:required:invalid
-            {
-              border: 1px solid red;
-            }
-
-            input:required:valid, 
-            select:required:valid,
-            textarea:required:valid
-            {
-              border: 1px solid green;
-            }
-            
-            
-           #loading {
-  background-color: #FAFAFA;
-  -webkit-animation: color 8s linear infinite;
-          animation: color 8s linear infinite;
-} 
-            
-            
-            #candy {
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  opacity: 0;
-  margin: calc(50vh - 150px) auto 0 auto;
-  width: 100px;
-  height: 300px;
-  border-radius: 100px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  background-color: #FAFAFA;
-  -webkit-box-shadow: 40px 20px 15px -30px rgba(255, 0, 0, 0.1);
-          box-shadow: 40px 20px 15px -30px rgba(255, 0, 0, 0.1);
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
-  -webkit-animation: PARTY 8s cubic-bezier(0.87, -0.41, 0.19, 1.44) infinite;
-          animation: PARTY 8s cubic-bezier(0.87, -0.41, 0.19, 1.44) infinite;
-}
-
-#candy-loader {
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  -webkit-box-shadow: 0px 0px 10px rgba(255, 50, 0, 0.8) inset;
-          box-shadow: 0px 0px 10px rgba(255, 50, 0, 0.8) inset;
-  background: #D33144;
-  background: repeating-linear-gradient(45deg, #FFFFEE, #FFFFEE 15px, #D33144 15px, #D33144 30px);
-  -webkit-animation: load 8s ease-in infinite;
-          animation: load 8s ease-in infinite;
-}
-
-#candy-loader::after {
-  content: "";
-  background-color: #FAFAFA;
-  width: 50px;
-  height: 270px;
-  border-radius: 50px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  -webkit-animation: color 8s linear infinite;
-          animation: color 8s linear infinite;
-}
-
-#candy-loader::before {
-  content: "";
-  background-color: #FAFAFA;
-  width: 25px;
-  height: 210px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  -webkit-animation: color 8s linear infinite;
-          animation: color 8s linear infinite;
-}
-
-@-webkit-keyframes load {
-  0% {
-    height: 0%;
-  }
-  50% {
-    height: 100%;
-  }
-}
-
-@keyframes load {
-  0% {
-    height: 0%;
-  }
-  50% {
-    height: 100%;
-  }
-}
-
-@-webkit-keyframes PARTY {
-  5% {
-    opacity: 1;
-  }
-  50% {
-    -webkit-transform: rotate(90deg) scale(1);
-            transform: rotate(90deg) scale(1);
-  }
-  60% {
-    -webkit-transform: rotate(-10deg) scale(1);
-            transform: rotate(-10deg) scale(1);
-  }
-  70% {
-    -webkit-transform: rotate(20deg) scale(1);
-            transform: rotate(20deg) scale(1);
-  }
-  80% {
-    -webkit-transform: rotate(-10deg) scale(1);
-            transform: rotate(-10deg) scale(1);
-  }
-  90% {
-    -webkit-transform: rotate(30deg) scale(1);
-            transform: rotate(30deg) scale(1);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: rotate(-180deg) scale(0);
-            transform: rotate(-180deg) scale(0);
-    opacity: 0;
-  }
-}
-
-@keyframes PARTY {
-  5% {
-    opacity: 1;
-  }
-  50% {
-    -webkit-transform: rotate(90deg) scale(1);
-            transform: rotate(90deg) scale(1);
-  }
-  60% {
-    -webkit-transform: rotate(-10deg) scale(1);
-            transform: rotate(-10deg) scale(1);
-  }
-  70% {
-    -webkit-transform: rotate(20deg) scale(1);
-            transform: rotate(20deg) scale(1);
-  }
-  80% {
-    -webkit-transform: rotate(-10deg) scale(1);
-            transform: rotate(-10deg) scale(1);
-  }
-  90% {
-    -webkit-transform: rotate(30deg) scale(1);
-            transform: rotate(30deg) scale(1);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: rotate(-180deg) scale(0);
-            transform: rotate(-180deg) scale(0);
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes color {
-  55% {
-    background-color: #FAFAFA;
-  }
-  57% {
-    background-color: #31D354;
-  }
-  95% {
-    background-color: #31D354;
-  }
-}
-
-@keyframes color {
-  55% {
-    background-color: #FAFAFA;
-  }
-  57% {
-    background-color: #31D354;
-  }
-  95% {
-    background-color: #31D354;
-  }
-}
-
-        </style>
+        <link rel='stylesheet' href='player.css' />
+       
     </head>
     <body>
                
@@ -288,16 +48,12 @@
                     
 
                 </div>
-                
-                
-            
+                      
             </div>
         </section>
         
         <script src="/socket.io/socket.io.js"></script>
         <script>
-            
-            
             
             
              var socket = io();
@@ -313,8 +69,7 @@
              
              let progressTimer = null
              
-                      
-             
+                                   
              document.querySelector('div.icons').innerHTML = (function(){
                  let html = '';
                  let autoSelect = Math.floor(Math.random() * 24) + 1  
@@ -400,7 +155,7 @@
             
             
             function displayIfCorrect(data) {
-                choices.innerHTML = `<h1 class="${data[userid].correct ? 'is-info' : 'is-danger'} title is-1">
+                choices.innerHTML = `<h1 class="title is-1">
                         ${data[userid].correct ? 'Correct' : 'Wrong Answer'}
                         </h1>`
             }

@@ -1,22 +1,12 @@
 // Setup basic express server
-require('dotenv').config()
-var express = require('express');
-var app = express();
-var path = require('path');
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-var port = process.env.PORT || 3000;
-var localtunnel = require('localtunnel')
-
-var gameUrl = `http://${process.env.GAME_ADDRESS || 'localhost'}:${port}`;
-
-var es6tunnel =  function (port, options) {
-    return new Promise(function (resolve, reject) {
-    localtunnel(port, options, function (err, tunnel) {
-      return err ? reject(err) : resolve(tunnel)
-    })
-  })
-}
+var express = require('express')
+var app = express()
+var path = require('path')
+var server = require('http').createServer(app)
+var io = require('socket.io')(server)
+var port = process.env.PORT || 3000
+const host_ip = require('./host-ip')
+var gameUrl = `http://${host_ip}:${port}`
 
 
 var questions = []
@@ -31,46 +21,7 @@ var answerData;
 var players = {};
 
 var gameInProgress = false
-var phase
-
-
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-
-
-
-/*
-
-es6tunnel(port).then(tunnel => {
-  // the assigned public url for your tunnel
-  // i.e. https://abcdefgjhij.localtunnel.me
-   gameUrl = tunnel.url;
-   return
-}).catch(err => {
-  if (err) console.log(err)
-  return
-}).then( fin => {
-*/
-
-
-// todo wait for all users to be ready
+var questionPhase = 1
 
 
 server.listen(port, function () {
@@ -91,7 +42,8 @@ io.on('connection', function (socket) {
     socket.emit('host-game-info', {
       gameUrl: gameUrl,
       numUsers: Object.keys(players).length,
-       players : players
+       players : players,
+       gameInProgress: gameInProgress
     });
   });
 
@@ -147,7 +99,7 @@ io.on('connection', function (socket) {
 
     socket.on('question timer', function () {
         if (!players[socket.id]) return
-        if ( phase === 1 ) {
+        if ( questionPhase === 1 ) {
             players[socket.id].questionReady = true
         } else {
             players[socket.id].questionDone = true
@@ -174,8 +126,6 @@ io.on('connection', function (socket) {
 
 
 
-// })  //localtunnel
-
 function resetPlayerWinners() {
     Object.keys(players)
                     .forEach(id => {
@@ -194,18 +144,43 @@ function resetPlayerNewRound() {
                     })
 }
 
-function emitNewQuestion() {
-    resetPlayerWinners()
-    phase = 1
-    io.sockets.emit('question', {
-        totalTime: nextQuestionDelayMs,
-        endTime: new Date().getTime() + nextQuestionDelayMs,
-        choices: [],
-        question:'Next Question ...',
-        img: 'loading.gif'
-    });
 
-    checkQuestionReady()
+function emitWinner() {
+   
+    // todo: get all winners or set game to give point to just first who answers
+    // maybe just get a list of winners and display the winners differently
+    
+    const mostAnswered = Math.max.apply(Math,Object.keys(players)
+                .map(key => players[key].points))
+    
+    var winners = Object.keys(players)
+                .filter(key => players[key].points === mostAnswered)
+                .map(key => players[key].username)                
+    gameInProgress = false
+        
+    io.sockets.emit('winner', winners);
+    
+}
+
+function emitNewQuestion() {
+    
+    if ( curQuestion < totalQuestions ) { 
+    
+        resetPlayerWinners()
+        questionPhase = 1
+        io.sockets.emit('question', {
+            totalTime: nextQuestionDelayMs,
+            endTime: new Date().getTime() + nextQuestionDelayMs,
+            choices: [],
+            question:'Next Question ...',
+            img: 'loading.gif',
+            questionsLeft: `${curQuestion+1}/${totalQuestions}`
+        });
+
+        checkQuestionReady()
+    } else {
+        emitWinner()
+    }
 
 }
 
@@ -226,11 +201,12 @@ function checkQuestionReady(time) {
                 answerData = q.answer
 
                 q.choices = shuffle(q.choices)
+                q.questionsLeft = `${curQuestion+1}/${totalQuestions}`
                 io.sockets.emit('question', q);
 
                 curQuestion++;
 
-               phase = 2
+               questionPhase = 2
                checkQuestionTimer()
             }
         } else {
@@ -262,8 +238,7 @@ function emitAnswer() {
     let data = {}
     data.correctAnswer = answerData;
     data.endTime = new Date().getTime() + timeToEnjoyAnswerMs;
-    data.totalTime = timeToEnjoyAnswerMs;
-    data.questionsLeft =  `${curQuestion}/${totalQuestions}`
+    data.totalTime = timeToEnjoyAnswerMs;    
 
     io.sockets.emit('correct answer', data); // emit to everyone (no winner)
 
@@ -276,18 +251,28 @@ function emitAnswer() {
     io.sockets.emit('leader', leader);
 
 
+    setTimeout(function(){
+        emitNewQuestion();
+    }, timeToEnjoyAnswerMs);
+    
+}
 
-    if ( curQuestion < totalQuestions ) {
-       setTimeout(function(){
-           emitNewQuestion();
-       }, timeToEnjoyAnswerMs);
-    } else {
-        // todo: get all winners or set game to give point to just first who answers
-        // maybe just get a list of winners and display the winners differently
-        var winner = Object.keys(players)
-                    .map(key => players[key])
-                    .reduce((prev, current) => (prev.points > current.points) ? prev : current, {})
-        gameInProgress = false
-            io.sockets.emit('winner', winner);
-    }
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }

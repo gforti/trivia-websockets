@@ -1827,3 +1827,31 @@ body, html {
     text-align: center;
     padding: 0.4rem
 }
+
+
+.level {
+                font-weight: bold;
+                background-image: linear-gradient(141deg, #ff0561 0%, #ff3860 71%, #ff5257 100%);
+                margin: 0 !important;
+                padding: 1rem;
+            }
+
+              
+
+.txt {
+  color: red;
+  text-shadow: 0.2vw 0.2vw 10px #000;
+}
+
+.txt p {
+  font-size: 5.2vw;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+
+.question img {
+    height: 50vh;
+    object-fit: contain;
+}

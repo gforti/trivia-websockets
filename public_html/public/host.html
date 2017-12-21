@@ -6,66 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='bulma.css' />
         <link rel='stylesheet' href='font.css' />
-        <link rel='stylesheet' href='host.css' />
-        <style>
-           .level {
-                font-weight: bold;
-                background-image: linear-gradient(141deg, #ff0561 0%, #ff3860 71%, #ff5257 100%);
-                margin: 0 !important;
-                padding: 1rem;
-            }
-
-              
-
-.txt {
-  color: #fff;
-  font-family: "Oleo Script", sans-serif;
-  width: 100%;
-  height: 10vw;
-  overflow: hidden;
-  position: relative;
-  text-shadow: 0.5vw 0.5vw 0px #000;
-}
-
-.txt p {
-  font-size: 7.2vw;
-  line-height: 10vw;
-  position: absolute;
-  margin: 0;
-  text-align: center;
-  width: 100%;
-  transform: translateY(10vw);
-  animation: slideUp 4s 0s linear infinite;
-}
-.txt p.reset-anim {
-  animation: none;
-}
-.txt p:nth-of-type(1) {
-  animation-delay: 0s;
-}
-.txt p:nth-of-type(2) {
-  animation-delay: 2s;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(100%);
-  }
-  25%, 50% {
-    transform: translateY(0);
-  }
-  75%, to {
-    transform: translateY(-100%);
-  }
-}
-
-
-.question img {
-    height: 50vh;
-    object-fit: contain;
-}
-                
-        </style>
+        <link rel='stylesheet' href='host.css' />      
     </head>
     <body>
              
@@ -730,11 +671,16 @@
             <h2 class="happy is-large">Epic Christmas Trivia</h2>
             <div class="columns">
                 <div class="column">
-                    <button class="roundtest button is-light is-large">Start</button>
-                </div><div class="column">
+                    <button class="roundtest button is-light is-large">Round Test</button>
+                </div>
+                <div class="column">
                     <button class="round1 button is-link is-large">Round 1</button>
-                </div><div class="column">
+                </div>
+                <div class="column">
                     <button class="round2 button is-success is-large">Round 2</button>
+                </div>
+                <div class="column">
+                    <button class="round3 button is-success is-large">Round 3</button>
                 </div>
             </div>
           </div>
@@ -745,33 +691,29 @@
          
         <section class="hero is-success is-fullheight is-hidden">
             <div class="hero-head">
-            <nav class="level is-mobile">  
-                 <div class="level-item has-text-centered">
-                    <div>
-                        <p class="heading">Location</p>
-                        <p class="title where2"></p>
+                <nav class="level is-mobile">  
+                     <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Location</p>
+                            <p class="title where2"></p>
+                        </div>
                     </div>
-                </div>
-                <div class="level-item has-text-centered leader"></div>               
-                <div class="level-item has-text-centered points"></div>
-                <div class="level-item has-text-centered">
-                    <div>
-                        <p class="heading">Question</p>
-                        <p class="title remain">?</p>
+                    <div class="level-item has-text-centered leader"></div>               
+                    <div class="level-item has-text-centered points"></div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Question</p>
+                            <p class="title remain">?</p>
+                        </div>
                     </div>
-                </div>
-            </nav>
-            
-           
+                </nav>
+                                      
                 
-                
-            <div class="section game-start has-text-centered">
+                <div class="section game-start has-text-centered">
                     <progress class="progress is-large is-info" value="100" max="100"></progress>
 
                     <div class="question">
-
                     </div>
-
                 </div>
                 
              </div>          
@@ -807,6 +749,11 @@
                 gameStarting()  
             })
             
+            document.querySelector('.round3').addEventListener('click', ()=>{
+                socket.emit('start', {round: 3});
+                gameStarting()  
+            })
+            
             function gameStarting() {
                 document.querySelector('.main-wrapper').classList.add('is-hidden')               
                 document.querySelector('.where').classList.add('is-hidden')               
@@ -822,26 +769,30 @@
                 displayWinner(data)
             })
            
-             function displayWinner(data) {
+             function displayWinner(data) {            
+                 winners =  data && data.length > 0 ? data.join(', ') : data && data.length ? data[0] : 'unknown'
+                 let randIcon = Math.floor(Math.random() * 24) + 1 
                  document.querySelector('.game-start').innerHTML = `
-                 <p class="has-text-centered"><img src="${data && data.icon ? data.icon : 'icons/1.png'}" /></p>
+                 <p class="has-text-centered"><img src="icons/${randIcon}.png" /></p>
                  <div class="txt">
                     <p>Winner</p>
-                    <p>${data && data.username ? data.username : 'unknown'}</p>
+                    <p>${winners}</p>
                 </div>   
                 `
              }
                  
-            
-            
+                        
             socket.on('host-game-info', function (data) {
               connected = true;
               
               document.querySelector('.where h1').innerHTML = data.gameUrl
               document.querySelector('.where2').innerHTML = data.gameUrl
               updateUsers(data)  
-             
-             
+              
+              if ( data.gameInProgress ) {
+                  gameStarting()
+              }
+                          
             });
             
             socket.on('user joined', function (data) {
@@ -856,12 +807,11 @@
             }
             
             socket.on('correct answer', function (data) {
-              
-              
+                            
                 progress.value = 100;
                 updateProgressBar(data)
                 displayAnswer(data)
-                updateQuestionsLeft(data)
+                
               
             });
             
@@ -876,6 +826,7 @@
                 progress.value = 100;
                 updateProgressBar(data)
                 displayQuestion(data)
+                updateQuestionsLeft(data)
                 
             });
             
@@ -907,7 +858,7 @@
             function updatePoints(data) { 
                     document.querySelector('.points').innerHTML = `
                         <div>
-                            <p class="heading">Answered</p>
+                            <p class="heading">Answered Correctly</p>
                             <p class="title">${data && data.points ? data.points : 0}</p>
                         </div> `;
             }
