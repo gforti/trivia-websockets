@@ -82,10 +82,11 @@ When the round is over the users **should not refresh their web browser**.
 
 To edit the game you can go to the `round1.js` file and change the questions and answers
 
-|Key|What it does|Optional|
-|question|Question to display to the players|No|
-|choices|Choices that will display to the players devices|NO|
-|answer|The correct answer to the choice|No|
-|img|Image to display from the img/ folder|YES|
-|music|Music trivia question|YES|
-|timeToAnswerMs|Change the time in milliseconds to display the question|YES|
+| Key | What it does | Optional |
+| ------ | ------ | ------ | ------ |
+| question | Question to display to the players | No |
+| choices | Choices that will display to the players devices | NO |
+| answer | The correct answer to the choice | No |
+| img | Image to display from the img/ folder | YES |
+| music | Music trivia question | YES |
+| timeToAnswerMs | Change the time in milliseconds to display the question | YES |
