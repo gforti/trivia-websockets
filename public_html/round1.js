@@ -214,4 +214,16 @@ module.exports = [{
     answer: "White",
     img: 'decoration.png'
 }
+,{
+   question: "What is the name of this song?",
+   choices: [
+        'We wish you a merry christmas',
+        'Jingle Bells',
+        'OH Holy Night',
+        'Frosty the snowman'
+    ],
+    answer: 'We wish you a merry christmas',
+    music: 'we-wish-you-a-merry-christmas.mp3',
+    timeToAnswerMs: 20000
+}
 ];

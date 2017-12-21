@@ -195,8 +195,9 @@ function checkQuestionReady(time) {
         if (canEmitQuestion) {
             if (questions[curQuestion]) {
                 var q = questions[curQuestion];
-                q.endTime = new Date().getTime() + timeToAnswerMs;
-                q.totalTime = timeToAnswerMs;
+                var timeToAnswer = q.timeToAnswerMs || timeToAnswerMs
+                q.endTime = new Date().getTime() + timeToAnswer;
+                q.totalTime = timeToAnswer;
 
                 answerData = q.answer
 
@@ -207,7 +208,7 @@ function checkQuestionReady(time) {
                 curQuestion++;
 
                questionPhase = 2
-               checkQuestionTimer()
+               checkQuestionTimer(timeToAnswer)
             }
         } else {
             checkQuestionReady(200)
