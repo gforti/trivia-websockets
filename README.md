@@ -66,7 +66,15 @@ $ npm start
 
 > `index.html` will run a on `http://[IP address]:3000/` This is where players will connect to
 
+Players can enter a user name, select their icon then click on ready.  A loading screen should appear.
+
 > Run `http://localhost:3000/host.html` on the host machine that will be displayed to everyone
+
+The players ready will show up on the upper left corner of the webpage for the host.  Once ready I suggest you run the `Round Test` to ensure there are no issues before an offical round is started.
+
+When the round is over the users **should not refresh their web browser**.
+
+> The Host should refresh the web browser to start a new round.
 
 ### Enjoy!
 
