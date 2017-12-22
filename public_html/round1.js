@@ -201,7 +201,7 @@ module.exports = [{
         'Hawaii'
     ],
     answer: "Oklahoma",
-    img: 'xmas_lead_variante_02.png'
+    img: 'xmas_lead_variante_02.gif'
 }
 ,{
     question: "Everyone is familiar with the mistletoe tradition. What is the color of the berries of the plant?",
@@ -221,7 +221,7 @@ module.exports = [{
         'False'
     ],
     answer: 'True',
-    img: '.png'
+    img: 'lights.jpg'
 }
 ,{
    question: "What is the name of this song?",
@@ -232,6 +232,7 @@ module.exports = [{
         'O Christmas Tree'
     ],
     answer: 'We wish you a merry christmas',
+    img: 'Christmas-Song.png',
     music: 'we-wish-you-a-merry-christmas.mp3',
     timeToAnswerMs: 20000
 }
@@ -244,6 +245,7 @@ module.exports = [{
         'Joy to the World'
     ],
     answer: 'Angels We Have Heard on High',
+    img: 'Christmas-Song.png',
     music: 'angels-we-have-heard.mp3',
     timeToAnswerMs: 20000
 }
@@ -256,6 +258,7 @@ module.exports = [{
         'Angels We Have Heard on High'
     ],
     answer: 'Joy to the World',
+    img: 'Christmas-Song.png',
     music: 'joy-to-the-world.mp3',
     timeToAnswerMs: 20000
 }

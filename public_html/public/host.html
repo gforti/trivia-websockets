@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Epic Christmas Trivia</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='bulma.css' />
@@ -680,7 +680,7 @@
                     <button class="round2 button is-success is-large">Round 2</button>
                 </div>
                 <div class="column">
-                    <button class="round3 button is-success is-large">Round 3</button>
+                    <button class="round3 button is-warning is-large">Round 3</button>
                 </div>
             </div>
           </div>
@@ -709,7 +709,7 @@
                 </nav>
                                       
                 
-                <div class="section game-start has-text-centered">
+                <div class="section game-start has-text-centered">                    
                     <progress class="progress is-large is-info" value="100" max="100"></progress>
 
                     <div class="question">
@@ -718,6 +718,8 @@
                 
              </div>          
         </section>
+         
+
         
         
         <script src="/socket.io/socket.io.js"></script>
@@ -770,10 +772,11 @@
                 displayWinner(data)
             })
            
-             function displayWinner(data) {            
+             function displayWinner(data) { 
+                 let lights = `<ul class="lightrope">${new Array(43+1).fill('<li></li>').join('')}</ul>`                
                  winners =  data && data.length > 0 ? data.join(', ') : data && data.length ? data[0] : 'unknown'
                  let randIcon = Math.floor(Math.random() * 24) + 1 
-                 document.querySelector('.game-start').innerHTML = `
+                 document.querySelector('.game-start').innerHTML = `${lights}
                  <p class="has-text-centered"><img src="icons/${randIcon}.png" /></p>
                  <div class="txt">
                     <p>Winner</p>

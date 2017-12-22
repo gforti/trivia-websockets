@@ -157,6 +157,7 @@ module.exports = [{
         'True'
     ],
     answer: 'False',
+    details: 'The first Christmas Trees came to Britain sometime in the 1830s.',
     img: '.png'
 }
 ,{
@@ -178,6 +179,17 @@ module.exports = [{
     img: '.png'
 }
 ,{
+    question: "How many green candies are directly on the front door of the ginger bread house?",
+    choices: [
+        '5',
+        '8',
+        '9',
+        '4'
+    ],
+    answer: '5',
+    img: 'gingerhousecount21red.jpg'
+}
+,{
     question: "What is the name of this song?",
     choices: [
         'Jingle Bells',
@@ -186,6 +198,7 @@ module.exports = [{
         'Carol of the Bells'
     ],
     answer: 'Jingle Bells',
+    img: 'Christmas-Song.png',
     music: 'jingle-bell-piano.mp3',
     timeToAnswerMs: 20000
 }
@@ -198,6 +211,7 @@ module.exports = [{
         'Carol of the Bells'
     ],
     answer: 'O Christmas Tree',
+    img: 'Christmas-Song.png',
     music: 'o-christmas-tree.mp3',
     timeToAnswerMs: 20000
 }
@@ -210,6 +224,7 @@ module.exports = [{
         'Ding Dong Merrily on High'
     ],
     answer: 'The Twelve Days of Christmas',
+    img: 'Christmas-Song.png',
     music: '12-days-funk.mp3',
     timeToAnswerMs: 20000
 }

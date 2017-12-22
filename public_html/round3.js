@@ -188,6 +188,7 @@ module.exports = [{
         'Ding Dong Merrily on High'
     ],
     answer: 'God Rest Ye Merry Gentlemen',
+    img: 'Christmas-Song.png',
     music: 'god-rest-ye-merry-gentlemen.mp3',
     timeToAnswerMs: 20000
 }
@@ -200,6 +201,7 @@ module.exports = [{
         'Oh Holy Night'
     ],
     answer: 'O Little Town of Bethlehem',
+    img: 'Christmas-Song.png',
     music: 'bethlem-jazz.mp3',
     timeToAnswerMs: 20000
 }
