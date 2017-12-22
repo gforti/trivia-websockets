@@ -2,12 +2,12 @@ module.exports = [{
     question: "Who tries to stop Christmas from coming, by stealing all things of Christmas",
     choices: [
         'The Grinch',
-        'Home Alone',
-        'Home Alone 3',
-        'Home Alone 4'
+        'Scrooge',
+        'Krampus',
+        'Jack Frost'
     ],
     answer: 'The Grinch',
-    img: '.png'
+    img: 'stopchristmas.jpg'
 }
 ,{
     question: "How many ghosts are there in A Christmas Carol?",
@@ -18,7 +18,7 @@ module.exports = [{
         'Two'
     ],
     answer: 'Four',
-    img: '.png'
+    img: 'Ghost_of_Christmas_Present.jpg'
 }
 ,{
     question: "Which country was the first to use the tradition of Christmas trees?",
@@ -29,7 +29,7 @@ module.exports = [{
         'America'
     ],
     answer: 'Germany',
-    img: '.png'
+    img: 'Christmas-Tree.jpeg'
 }
 ,{
     question: "Stollen is the traditional fruit cake of which country?",
@@ -40,7 +40,7 @@ module.exports = [{
         'America'
     ],
     answer: 'Germany',
-    img: '.png'
+    img: 'gross-christmas-fruitcake.png'
 }
 ,{
     question: "Which was the first country to issue a Christmas postage stamp?",
@@ -51,7 +51,7 @@ module.exports = [{
         'America'
     ],
     answer: 'Canada',
-    img: '.png'
+    img: 'Christmas_stamps.jpg'
 }
 ,{
     question: "Which country has a tradition of a witch dropping gifts for children through the chimney at Christmas?",
@@ -62,7 +62,7 @@ module.exports = [{
         'France'
     ],
     answer: 'Italy',
-    img: '.png'
+    img: 'witch.jpg'
 }
 ,{
     question: "When was Christmas declared as a federal holiday in the United States?",
@@ -73,7 +73,7 @@ module.exports = [{
         '1899'
     ],
     answer: '1870',
-    img: '.png'
+    img: 'rockefeller-center-christmas-tree-nyc.jpg'
 }
 ,{
     question: "Roughly how many turkeys are consumed in the United States for Christmas?",
@@ -84,7 +84,7 @@ module.exports = [{
         '46 million'
     ],
     answer: '22 million',
-    img: '.png'
+    img: 'turkey.jpg'
 }
 ,{
     question: "Which type of tree was the partridge sitting in, according to a well-known Christmas song?",
@@ -95,7 +95,7 @@ module.exports = [{
         'Grape'
     ],
     answer: 'Pear',
-    img: '.png'
+    img: 'partridge.jpg'
 }
 ,{
     question: "How do you say 'Merry Christmas' in Spanish?",
@@ -106,7 +106,7 @@ module.exports = [{
         'Dia De Los Reyes'
     ],
     answer: 'Feliz Navidad',
-    img: '.png'
+    img: 'Merry-Christmas.png'
 }
 ,{
     question: "In what city did the 1947 film Miracle on 34th Street take place?",
@@ -117,7 +117,7 @@ module.exports = [{
         'Providence'
     ],
     answer: 'Feliz Navidad',
-    img: '.png'
+    img: 'rockefeller-center-christmas-tree-nyc.jpg'
 }
 ,{
     question: "In the 1994 film, The Santa Clause, what was the restaurant that Scott Calvin, Tim Allen's character, took his son to after burning the Christmas turkey?",
@@ -128,7 +128,7 @@ module.exports = [{
         'Panda Express'
     ],
     answer: 'Dennys',
-    img: '.png'
+    img: 'santa-clause-movie.jpg'
 }
 ,{
     question: "In the 2003 Christmas comedy Elf, what was the first rule of The Code of Elves?",
@@ -139,7 +139,7 @@ module.exports = [{
         'Bah Humbug'
     ],
     answer: 'Treat every day like Christmas',
-    img: '.png'
+    img: 'elf-movie.jpg'
 }
 ,{
     question: "Before turkey, the traditional English Christmas dinner included a pig’s head smothered in mustard.",
@@ -148,7 +148,7 @@ module.exports = [{
         'False'
     ],
     answer: 'True',
-    img: '.png'
+    img: 'turkey.jpg'
 }
 ,{
     question: "The first Christmas tree appeared in the United States.",
@@ -158,7 +158,7 @@ module.exports = [{
     ],
     answer: 'False',
     details: 'The first Christmas Trees came to Britain sometime in the 1830s.',
-    img: '.png'
+    img: 'Christmas-Tree.jpeg'
 }
 ,{
     question: "James Edgar, in 1890, was the first person to wear a tailored Santa costume and walk around the store, distributing gifts.",
@@ -167,7 +167,7 @@ module.exports = [{
         'False'
     ],
     answer: 'True',
-    img: '.png'
+    img: 'old-santa-suit.jpg'
 }
 ,{
     question: "Should you believe us when we say that once upon a time, Christmas celebrations were banned in England?",
@@ -176,7 +176,7 @@ module.exports = [{
         'No'
     ],
     answer: 'Yes',
-    img: '.png'
+    img: 'no-christmas.png'
 }
 ,{
     question: "How many green candies are directly on the front door of the ginger bread house?",

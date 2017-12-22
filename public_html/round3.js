@@ -7,7 +7,7 @@ module.exports = [{
         'Judea'
     ],
     answer: 'Bethlehem',
-    img: '.png'
+    img: 'Joseph-travel.gif'
 }
 ,{
     question: "Where was Jesus born?",
@@ -18,7 +18,7 @@ module.exports = [{
         'America'
     ],
     answer: 'Bethlehem',
-    img: '.png'
+    img: 'manger.png'
 }
 ,{
     question: "Who appeared to tell Mary that she was with child?",
@@ -29,7 +29,7 @@ module.exports = [{
         'Michael'
     ],
     answer: 'Gabriel',
-    img: '.png'
+    img: 'joseph_mary.png'
 }
 ,{
     question: "How many angels spoke to the shepherds?",
@@ -40,7 +40,7 @@ module.exports = [{
         'Three'
     ],
     answer: 'One',
-    img: '.png'
+    img: 'Christmas_Angel.png'
 }
 ,{
     question: "Who followed a star to find baby Jesus?",
@@ -51,7 +51,7 @@ module.exports = [{
         'Mary'
     ],
     answer: 'The wise men',
-    img: '.png'
+    img: 'Christmas-Nativity-Images.jpg'
 }
 ,{
     question: "Where was Jesus laid after he was born?",
@@ -62,7 +62,7 @@ module.exports = [{
         'In a hospital'
     ],
     answer: 'In a manger',
-    img: '.png'
+    img: 'joseph_mary.png'
 }
 ,{
     question: "The bible says Jesus was born in December?",
@@ -71,7 +71,7 @@ module.exports = [{
         'True'
     ],
     answer: 'False',
-    img: '.png'
+    img: 'calendar.png'
 }
 ,{
     question: "The bible says sheep and other barn animals were present at Jesus' birth?",
@@ -80,7 +80,7 @@ module.exports = [{
         'True'
     ],
     answer: 'False',
-    img: '.png'
+    img: 'sheepchristmas.jpg'
 }
 ,{
     question: "Mary was found to be pregnant through the Holy Spirit?",
@@ -89,7 +89,7 @@ module.exports = [{
         'False'
     ],
     answer: 'True',
-    img: '.png'
+    img: 'mary-holyspirit.jpg'
 }
 ,{
     question: "How did God speak to Joseph?",
@@ -100,7 +100,7 @@ module.exports = [{
         'By mail'
     ],
     answer: 'In a dream',
-    img: '.png'
+    img: 'joseph.jpg'
 }
 ,{
     question: "What does 'Immanuel' stand for?",
@@ -111,7 +111,7 @@ module.exports = [{
         'God be us'
     ],
     answer: 'God with us',
-    img: '.png'
+    img: 'immanuel.png'
 }
 ,{
     question: "After leaving Bethlehem, to which country did Joseph, Mary, and Jesus travel?",
@@ -122,7 +122,7 @@ module.exports = [{
         'Jerusalem'
     ],
     answer: "Egypt",
-    img: 'manger.png'
+    img: 'travel-Mary-and-Joseph.jpg'
 }
 ,{
     question: "Why did King Herod want the wise men to fins Jesus?",
@@ -133,7 +133,7 @@ module.exports = [{
         'To say hi'
     ],
     answer: "Egypt",
-    img: 'manger.png'
+    img: 'King-Herod.jpg'
 }
 ,{
     question: "The Christmas story is in which book(s) of the bible?",
@@ -144,7 +144,7 @@ module.exports = [{
         'Only Matthew'
     ],
     answer: "Matthew and Luke",
-    img: 'manger.png'
+    img: 'christmas-bible.jpg'
 }
 ,{
     question: "To whom did the angel say 'Savior has been born to you'?",
@@ -155,7 +155,7 @@ module.exports = [{
         'John'
     ],
     answer: "Shepherds",
-    img: 'manger.png'
+    img: 'savior.jpg'
 }
 ,{
     question: "On what day was Jesus named and circumcised?",
@@ -166,7 +166,7 @@ module.exports = [{
         'Sixth Day'
     ],
     answer: "Eighth Day",
-    img: 'manger.png'
+    img: 'joseph_mary.png'
 }
 ,{
     question: "Which of these was not a gift given by the 'Wise Men' to Baby Jesus?",
@@ -177,7 +177,7 @@ module.exports = [{
         'Frankincense'
     ],
     answer: "Silver",
-    img: 'manger.png'
+    img: 'wise-men-gifts.png'
 }
 ,{
     question: "What is the name of this song?",

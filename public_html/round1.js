@@ -113,7 +113,7 @@ module.exports = [{
         'Only Matthew'
     ],
     answer: "Matthew and Luke",
-    img: 'manger.png'
+    img: 'christmas-bible.jpg'
 }
 ,{
     question: "What animated 2004 film is about a train that carries kids to the North Pole on Christmas Eve?",
