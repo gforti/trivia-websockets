@@ -10,6 +10,28 @@ module.exports = [{
     img: 'stopchristmas.jpg'
 }
 ,{
+    question: "Who appeared to tell Mary that she was with child?",
+    choices: [
+        'Gabriel',
+        'Jesus',
+        'God',
+        'Michael'
+    ],
+    answer: 'Gabriel',
+    img: 'joseph_mary.png'
+}
+,{
+    question: "Which of these was not a gift given by the 'Wise Men' to Baby Jesus?",
+    choices: [
+        "Silver",
+        'Gold',
+        'Myrrh',
+        'Frankincense'
+    ],
+    answer: "Silver",
+    img: 'wise-men-gifts.png'
+}
+,{
     question: "How many ghosts are there in A Christmas Carol?",
     choices: [
         'Four',
@@ -117,7 +139,7 @@ module.exports = [{
         'Providence'
     ],
     answer: 'New York City',
-    img: 'rockefeller-center-christmas-tree-nyc.jpg'
+    img: 'miracle-on-34th-street.png'
 }
 ,{
     question: "In the 1994 film, The Santa Clause, what was the restaurant that Scott Calvin, Tim Allen's character, took his son to after burning the Christmas turkey?",
@@ -142,13 +164,26 @@ module.exports = [{
     img: 'elf-movie.jpg'
 }
 ,{
-    question: "Before turkey, the traditional English Christmas dinner included a pig’s head smothered in mustard.",
+    question: "Which was the last state in the United States that declared Christmas a legal holiday?",
     choices: [
-        'True',
-        'False'
+        "Oklahoma",
+        'Kansas',
+        'Puerto Rico',
+        'Hawaii'
     ],
-    answer: 'True',
-    img: 'turkey.jpg'
+    answer: "Oklahoma",
+    img: 'xmas_lead_variante_02.gif'
+}
+,{
+    question: "Everyone is familiar with the mistletoe tradition. What is the color of the berries of the plant?",
+    choices: [
+        "White",
+        'Red',
+        'Blue',
+        'Green'
+    ],
+    answer: "White",
+    img: 'decoration.png'
 }
 ,{
     question: "James Edgar, in 1890, was the first person to wear a tailored Santa costume and walk around the store, distributing gifts.",
@@ -218,5 +253,4 @@ module.exports = [{
     music: '12-days-funk.mp3',
     timeToAnswerMs: 20000
 }
-
 ];

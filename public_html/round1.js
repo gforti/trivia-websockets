@@ -8,7 +8,8 @@ module.exports = [{
     ],
     answer: 'Home Alone 2',
     img: 'trumphomealone2.png'
-},{
+}
+,{
     question: "In the song 'Frosty the Snowman', what made Frosty come to life?",
     choices: [
         'An old silk hat',
@@ -18,7 +19,8 @@ module.exports = [{
     ],
     answer: 'An old silk hat',
     img: 'frosty.png'
-},{
+}
+,{
     question: "What Christmas beverage is also known as 'milk punch?'",
     choices: [
         'Eggnog',
@@ -28,7 +30,8 @@ module.exports = [{
     ],
     answer: 'Eggnog',
     img: 'eggnog.png'
-},{
+}
+,{
     question: "What Christmas-themed ballet premiered in Saint Petersburg, Russia in 1892?",
     choices: [
         'The Nutcracker',
@@ -38,7 +41,8 @@ module.exports = [{
     ],
     answer: 'The Nutcracker',
     img: 'theater.png'
-},{
+}
+,{
     question: "What traditional Christmas decoration is actually a parasitic plant?",
     choices: [
         'Mistletoe',
@@ -193,28 +197,6 @@ module.exports = [{
     img: 'xmas_lead_variante_02.gif'
 }
 ,{
-    question: "Which was the last state in the United States that declared Christmas a legal holiday?",
-    choices: [
-        "Oklahoma",
-        'Kansas',
-        'Puerto Rico',
-        'Hawaii'
-    ],
-    answer: "Oklahoma",
-    img: 'xmas_lead_variante_02.gif'
-}
-,{
-    question: "Everyone is familiar with the mistletoe tradition. What is the color of the berries of the plant?",
-    choices: [
-        "White",
-        'Red',
-        'Blue',
-        'Green'
-    ],
-    answer: "White",
-    img: 'decoration.png'
-}
-,{
     question: "Thomas Edison in 1880 invented electric Christmas lights?",
     choices: [
         'True',
@@ -222,6 +204,15 @@ module.exports = [{
     ],
     answer: 'True',
     img: 'lights.jpg'
+}
+,{
+    question: "Before turkey, the traditional English Christmas dinner included a pig’s head smothered in mustard.",
+    choices: [
+        'True',
+        'False'
+    ],
+    answer: 'True',
+    img: 'turkey.jpg'
 }
 ,{
    question: "What is the name of this song?",
