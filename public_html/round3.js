@@ -58,7 +58,7 @@ module.exports = [{
     choices: [
         'In a manger',
         'In a hotel',
-        'In a inn',
+        'In an inn',
         'In a hospital'
     ],
     answer: 'In a manger',
