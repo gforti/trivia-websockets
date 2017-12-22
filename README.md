@@ -90,5 +90,6 @@ To edit the game you can go to the `round1.js` file and change the questions and
 | img | Image to display from the img/ folder | Yes |
 | music | Music trivia question | Yes |
 | timeToAnswerMs | Change the time in milliseconds to display the question | Yes |
+| details | Display extra details about an answer | Yes |
 
 > Note any music added must also be added to the `host.html` file.  Towards the end of the file.

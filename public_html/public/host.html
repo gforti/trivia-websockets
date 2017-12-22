@@ -839,9 +839,9 @@
             
             function displayQuestion(data){
                 let html = `<h1 class="title is-1">${data.question}</h1>`
-                if ( data.img )
+                if ( data.img && data.img.length )
                     html += `<p class="has-text-centered"><img src="img/${data.img}" /></p>`
-                if ( data.music ) {
+                if ( data.music && data.music.length ) {
                     stopTrack();
                     questionSong = data.music
                     if( triviaTracks.hasOwnProperty(questionSong))
@@ -857,7 +857,14 @@
                         triviaTracks[questionSong].currentTime = 0;
                         questionSong = ''                        
                 }
-                document.querySelector('.question').innerHTML = `<h1 class="title is-1">${data.correctAnswer}</h1>`
+                 
+                let html = `<h1 class="title is-1">${data.correctAnswer}</h1>`
+                
+                if ( data.answerDetails && data.answerDetails.length ) {
+                    html += `<h2 class="title is-2">${data.answerDetails}</h2>`
+                }
+                 
+                document.querySelector('.question').innerHTML = html
             }
             
             function displayLeader(data){
@@ -939,7 +946,14 @@
          
          
         var triviaTracks = {
-            'we-wish-you-a-merry-christmas.mp3': new Audio('trivia-songs/we-wish-you-a-merry-christmas.mp3')
+            'we-wish-you-a-merry-christmas.mp3': new Audio('trivia-songs/we-wish-you-a-merry-christmas.mp3'),
+            'angels-we-have-heard.mp3': new Audio('trivia-songs/angels-we-have-heard.mp3'),
+            'jingle-bell-piano.mp3': new Audio('trivia-songs/jingle-bell-piano.mp3'),
+            'joy-to-the-world.mp3': new Audio('trivia-songs/joy-to-the-world.mp3'),
+            'o-christmas-tree.mp3': new Audio('trivia-songs/o-christmas-tree.mp3'),
+            'god-rest-ye-merry-gentlemen.mp3': new Audio('trivia-songs/god-rest-ye-merry-gentlemen.mp3'),
+            '12-days-funk.mp3': new Audio('trivia-songs/12-days-funk.mp3'),
+            'bethlem-jazz.mp3': new Audio('trivia-songs/bethlem-jazz.mp3')
         }
         
             

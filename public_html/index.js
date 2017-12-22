@@ -18,6 +18,7 @@ var timeToAnswerMs = 15000; // 15secs // how long players have to answer questio
 var timeToEnjoyAnswerMs = 10000; //10secs // how long players have to read answer
 
 var answerData;
+var answerDetails;
 var players = {};
 
 var gameInProgress = false
@@ -146,26 +147,26 @@ function resetPlayerNewRound() {
 
 
 function emitWinner() {
-   
+
     // todo: get all winners or set game to give point to just first who answers
     // maybe just get a list of winners and display the winners differently
-    
+
     const mostAnswered = Math.max.apply(Math,Object.keys(players)
                 .map(key => players[key].points))
-    
+
     var winners = Object.keys(players)
                 .filter(key => players[key].points === mostAnswered)
-                .map(key => players[key].username)                
+                .map(key => players[key].username)
     gameInProgress = false
-        
+
     io.sockets.emit('winner', winners);
-    
+
 }
 
 function emitNewQuestion() {
-    
-    if ( curQuestion < totalQuestions ) { 
-    
+
+    if ( curQuestion < totalQuestions ) {
+
         resetPlayerWinners()
         questionPhase = 1
         io.sockets.emit('question', {
@@ -200,6 +201,7 @@ function checkQuestionReady(time) {
                 q.totalTime = timeToAnswer;
 
                 answerData = q.answer
+                answerDetails = q.details || ''
 
                 q.choices = shuffle(q.choices)
                 q.questionsLeft = `${curQuestion+1}/${totalQuestions}`
@@ -238,8 +240,9 @@ function emitAnswer() {
 
     let data = {}
     data.correctAnswer = answerData;
+    data.answerDetails = answerDetails;
     data.endTime = new Date().getTime() + timeToEnjoyAnswerMs;
-    data.totalTime = timeToEnjoyAnswerMs;    
+    data.totalTime = timeToEnjoyAnswerMs;
 
     io.sockets.emit('correct answer', data); // emit to everyone (no winner)
 
@@ -255,7 +258,7 @@ function emitAnswer() {
     setTimeout(function(){
         emitNewQuestion();
     }, timeToEnjoyAnswerMs);
-    
+
 }
 
 

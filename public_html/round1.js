@@ -215,15 +215,48 @@ module.exports = [{
     img: 'decoration.png'
 }
 ,{
+    question: "Thomas Edison in 1880 invented electric Christmas lights?",
+    choices: [
+        'True',
+        'False'
+    ],
+    answer: 'True',
+    img: '.png'
+}
+,{
    question: "What is the name of this song?",
    choices: [
         'We wish you a merry christmas',
         'Jingle Bells',
         'OH Holy Night',
-        'Frosty the snowman'
+        'O Christmas Tree'
     ],
     answer: 'We wish you a merry christmas',
     music: 'we-wish-you-a-merry-christmas.mp3',
+    timeToAnswerMs: 20000
+}
+,{
+   question: "What is the name of this song?",
+   choices: [
+        'Angels We Have Heard on High',
+        'The First Noel',
+        'OH Holy Night',
+        'Joy to the World'
+    ],
+    answer: 'Angels We Have Heard on High',
+    music: 'angels-we-have-heard.mp3',
+    timeToAnswerMs: 20000
+}
+,{
+   question: "What is the name of this song?",
+   choices: [
+        'Joy to the World',
+        'Jingle Bells',
+        'OH Holy Night',
+        'Angels We Have Heard on High'
+    ],
+    answer: 'Joy to the World',
+    music: 'joy-to-the-world.mp3',
     timeToAnswerMs: 20000
 }
 ];
