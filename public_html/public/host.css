@@ -2010,13 +2010,13 @@ body, html {
             
 
 @keyframes color_change {
-    from { color: gold; }
-    to { color: red; }
+    from { color: red; }
+    to { color: gold; }
 }
 
 
 .txt {
-  color: red;
+  color: gold;
   text-shadow: 0.2vw 0.2vw 10px #000;
   animation: color_change 1s infinite alternate;
 }

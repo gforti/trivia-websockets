@@ -157,7 +157,11 @@
             function displayIfCorrect(data) {
                 choices.innerHTML = `<h1 class="title is-1">
                         ${data[userid].correct ? 'Correct' : 'Wrong Answer'}
-                        </h1>`
+                        </h1>
+                        <h2 class="title is-2">
+                        ${data[userid].answerSelected}
+                        </h2>
+                    `
             }
             
             function submitChoice(){

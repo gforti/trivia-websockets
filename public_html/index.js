@@ -59,6 +59,7 @@ io.on('connection', function (socket) {
     data.correct = false
     data.questionDone = false
     data.questionReady = false
+    data.answerSelected = ''
     players[socket.id] = Object.assign({}, data);
 
     addedUser = true;
@@ -90,6 +91,7 @@ io.on('connection', function (socket) {
     socket.on('answer', function (data) {
         if (!players[socket.id]) return
         players[socket.id].correct = false
+        players[socket.id].answerSelected = data.answer
         if ( answerData == data.answer) {
             players[socket.id].correct = true
             players[socket.id].points++
@@ -133,6 +135,7 @@ function resetPlayerWinners() {
                         players[id].correct = false
                         players[id].questionDone = false
                         players[id].questionReady = false
+                        players[id].answerSelected = ''
                     })
 }
 
@@ -244,7 +247,7 @@ function emitAnswer() {
     data.endTime = new Date().getTime() + timeToEnjoyAnswerMs;
     data.totalTime = timeToEnjoyAnswerMs;
 
-    io.sockets.emit('correct answer', data); // emit to everyone (no winner)
+    io.sockets.emit('correct answer', data); // emit to everyone
 
     io.sockets.emit('answer results', players);
 

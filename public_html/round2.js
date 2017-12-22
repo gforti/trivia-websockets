@@ -116,7 +116,7 @@ module.exports = [{
         'Detroit',
         'Providence'
     ],
-    answer: 'Feliz Navidad',
+    answer: 'New York City',
     img: 'rockefeller-center-christmas-tree-nyc.jpg'
 }
 ,{
@@ -149,16 +149,6 @@ module.exports = [{
     ],
     answer: 'True',
     img: 'turkey.jpg'
-}
-,{
-    question: "The first Christmas tree appeared in the United States.",
-    choices: [
-        'False',
-        'True'
-    ],
-    answer: 'False',
-    details: 'The first Christmas Trees came to Britain sometime in the 1830s.',
-    img: 'Christmas-Tree.jpeg'
 }
 ,{
     question: "James Edgar, in 1890, was the first person to wear a tailored Santa costume and walk around the store, distributing gifts.",

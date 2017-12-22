@@ -125,14 +125,14 @@ module.exports = [{
     img: 'travel-Mary-and-Joseph.jpg'
 }
 ,{
-    question: "Why did King Herod want the wise men to fins Jesus?",
+    question: "Why did King Herod want the wise men to find Jesus?",
     choices: [
         "To kill him",
         'To worship him',
         'To feed him',
         'To say hi'
     ],
-    answer: "Egypt",
+    answer: "To kill him",
     img: 'King-Herod.jpg'
 }
 ,{
@@ -147,7 +147,7 @@ module.exports = [{
     img: 'christmas-bible.jpg'
 }
 ,{
-    question: "To whom did the angel say 'Savior has been born to you'?",
+    question: "To whom did the angel say 'A Savior has been born to you'?",
     choices: [
         "Shepherds",
         'The wise men',

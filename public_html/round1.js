@@ -157,7 +157,7 @@ module.exports = [{
         'Jerusalem'
     ],
     answer: "Egypt",
-    img: 'manger.png'
+    img: 'travel-Mary-and-Joseph.jpg'
 }
 ,{
     question: "Christmas is celebrated on the 25th of December. What is celebrated on the 26th of December?",
