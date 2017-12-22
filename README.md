@@ -16,6 +16,8 @@ If the user disconnects then it does not need to wait for that signal.  The user
 
 ## Configure your IP address
 
+### This should be automatic and no configuration is needed but if for some reason the program does not work you can follow the steps to guide you
+
 > Everyone must be connected to the same network to play.
 
 This application connects on `0.0.0.0` which will resolve to localhost based on your network IP address.
