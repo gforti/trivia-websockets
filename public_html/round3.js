@@ -29,7 +29,7 @@ module.exports = [{
         'Michael'
     ],
     answer: 'Gabriel',
-    img: 'joseph_mary.png'
+    img: 'joseph-and-mary.jpg'
 }
 ,{
     question: "How many angels spoke to the shepherds?",
@@ -62,7 +62,7 @@ module.exports = [{
         'In a hospital'
     ],
     answer: 'In a manger',
-    img: 'joseph_mary.png'
+    img: 'joseph-and-mary.jpg'
 }
 ,{
     question: "The bible says Jesus was born in December?",
@@ -166,7 +166,7 @@ module.exports = [{
         'Sixth Day'
     ],
     answer: "Eighth Day",
-    img: 'joseph_mary.png'
+    img: 'joseph-and-mary.jpg'
 }
 ,{
     question: "Which of these was not a gift given by the 'Wise Men' to Baby Jesus?",

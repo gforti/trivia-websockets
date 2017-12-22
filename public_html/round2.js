@@ -18,7 +18,7 @@ module.exports = [{
         'Michael'
     ],
     answer: 'Gabriel',
-    img: 'joseph_mary.png'
+    img: 'joseph-and-mary.jpg'
 }
 ,{
     question: "Which of these was not a gift given by the 'Wise Men' to Baby Jesus?",
