@@ -10,7 +10,7 @@ If it is a bit slow do not panic it will send the signal.
 
 If the user disconnects then it does not need to wait for that signal.  The user can rejoin.
 
-> Be sure that the browser used is up to date.  On Adorid devices the default web browser might perform better than a 3rd party browser.
+> Be sure that the browser used is up to date.  On Android devices the default web browser might perform better than a 3rd party browser.
 
 # Setup
 
@@ -70,7 +70,7 @@ Players can enter a user name, select their icon then click on ready.  A loading
 
 > Run `http://localhost:3000/host.html` on the host machine that will be displayed to everyone
 
-The players ready will show up on the upper left corner of the webpage for the host.  Once ready I suggest you run the `Round Test` to ensure there are no issues before an offical round is started.
+The players ready will show up on the upper left corner of the web page for the host.  Once ready I suggest you run the `Round Test` to ensure there are no issues before an offical round is started.
 
 When the round is over the users **should not refresh their web browser**.
 
