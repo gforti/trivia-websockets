@@ -2056,3 +2056,8 @@ body, html {
     height: 50vh;
     object-fit: contain;
 }
+
+.where h1 {
+    letter-spacing: 0.1rem;
+    font-weight: bold;
+}
