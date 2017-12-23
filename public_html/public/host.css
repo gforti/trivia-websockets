@@ -1985,12 +1985,34 @@ body, html {
 
 
 .players {
+    background-color: #a90e0e;
     position: fixed;
     top: 0;
     width:100px;
     color: white;
     text-align: center;
     padding: 0.4rem
+}
+
+.players .title{ 
+    color: white;
+}
+
+.Aligner {
+    display: flex;
+    white-space: nowrap;
+}
+
+.Aligner-item {
+    max-width: 70%;
+    max-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 0.1rem;
+}
+
+.Aligner-item-img {
+     max-width: 30%;
 }
 
 

@@ -806,9 +806,22 @@
             
             function updateUsers(data){
                document.querySelector('.players').innerHTML = ` <div>
-                            <p class="heading">Players</p>
-                            <p class="title">${data.numUsers}</p>
-                        </div>` 
+                            <p class="heading">Total<br />Players</p>
+                            <p class="title is-light">${data.numUsers}</p>
+                        </div>
+                       
+                        ${Object.keys(data.players).map(id => `
+                        <div class="Aligner">
+                            <div class="Aligner-item-img">
+                                <img src="${data.players[id].icon}" />
+                            </div>
+                            <div class="Aligner-item">
+                                ${data.players[id].username}
+                            </div>
+                        </div>
+                        `).join('')}
+                        
+            ` 
             }
             
             socket.on('correct answer', function (data) {

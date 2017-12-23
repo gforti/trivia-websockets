@@ -1,6 +1,6 @@
 # Trivia WebSockets
 
-**This Trivia repo is complete as if 12/22/2017 3:45 PM**
+**This Trivia repo is complete as if 12/22/2017**
 
 This is a Christmas trivia game that uses websockets.  The idea is that the host will display the questions and the players 
 will use their device to answer the questions.
