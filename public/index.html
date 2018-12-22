@@ -1,265 +1,289 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel='stylesheet' href='bulma.css' />
-        <link rel='stylesheet' href='player.css' />
-       
-    </head>
-    <body>
-               
-        <section class="hero is-success is-fullheight">
-            <div class="hero-head">
-            <nav class="level is-mobile">         
-                <div class="level-item has-text-centered currentUser"></div> 
-                <div class="level-item has-text-centered points"></div>
-                <div class="level-item has-text-centered numUsers"></div>                 
-            </nav>
-            
-            
-                <div class="login">
-                    <div class="section">
-                        <h1 class="title">User Name</h1>
-                        <input name="user" type="text" class="input is-large" required />
-                        <div class="icons"></div>
-                        <button class="button is-primary is-large login">Ready</button>
-                    </div>
-                </div>
 
-                <div class="game is-hidden">   
-                    
-                    <div id='candy' class="is-hidden">
-                        <div id='candy-loader'></div>
-                    </div>
-                    
-                    <div class="section game-start is-hidden has-text-centered">                       
-                        <progress class="progress is-large is-info" value="100" max="100"></progress>
-                        
-                        <div class="choices">
-                            
-                        </div>
-                        
-                        <p>
-                        <button class="submitChoice button is-large is-danger">Submit</button>
-                        </p>
-                    </div>
-                    
+<head>
+  <title>TODO supply a title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='bulma.css' />
+  <link rel='stylesheet' href='player.css' />
 
-                </div>
-                      
-            </div>
-        </section>
-        
-        <script src="/socket.io/socket.io.js"></script>
-        <script>
-            
-            
-             var socket = io();
-             let username, connected, userid;
-             document.querySelector('button.login').addEventListener('click', setUsername)  
-             
-             let choiceButton = document.querySelector('button.submitChoice');
-             choiceButton.addEventListener('click', submitChoice)            
-              choiceButton.classList.add('is-hidden')
-             
-             let choices = document.querySelector('.choices')
-             let progress = document.querySelector('progress')
-             
-             let progressTimer = null
-             
-                                   
-             document.querySelector('div.icons').innerHTML = (function(){
-                 let html = '';
-                 let autoSelect = Math.floor(Math.random() * 24) + 1  
-                 
-                 for( let i = 1; i < 25; i++ ) {
-                     let icon = `icons/${i}.png`
-                     html += `<label for="${icon}">
-                                <input  type="radio" 
-                                        name="icon" 
-                                        value="${icon}" 
-                                        id="${icon}"
-                                        ${ autoSelect === i ? 'checked' : ''}
-                                > 
-                                <img src="${icon}"/> 
-                            </label>`
-                 }
-                 return html
-             })()
-             
-             
-              function setUsername () {
-                username = document.querySelector('input[name="user"]');
-                icon = document.querySelector('input[name="icon"]:checked').value;
-                
+</head>
 
-                // If the username is valid
-                if (username.checkValidity()) {                 
-                  // Tell the server your username
-                  username = username.value
-                  socket.emit('add user', {username, icon});
-                  setCurrentUser({username, icon})
-                  hide('.login')
-                  
-                  window.scrollTo(0, 0);
-                }
-              }
-              
-              
-              // Whenever the server emits 'login', log the login message
-            socket.on('login', function (data) {
-                connected = true;
+<body>
 
-                userid = data.userid
-                updateUsers(data)
-                updatePoints(null)
-                show('.game')
-                // used to allow late joins without breaking the game
-                if (!data.gameInProgress){                    
-                    show('#candy')
-                    document.querySelector('section.hero').id = 'loading'
-                } else {
-                    document.querySelector('section.hero').id = ''
-                    hide('#candy')
-                    show('.game-start')
-                    socket.emit('question timer')
-                }
-            });
-            
-            // Whenever the server emits 'user joined', log it in the chat body
-            socket.on('user joined', function (data) {
-                updateUsers(data)                
-            });
-            
-            
-             socket.on('question', function (data) {             
-               
-                document.querySelector('section.hero').id = ''
-                hide('#candy')
-                show('.game-start')
-                
-                progressTimer = null                
-                progress.value = 100;
-                updateProgressBar(data)
-                displayChoices(data)
-                
-            });
-            
-            
-             socket.on('answer results', function (data) {
-                updatePoints(data)
-                displayIfCorrect(data)
-            });
-            
-            
-            function displayIfCorrect(data) {
-                choices.innerHTML = `<h1 class="title is-1">
-                        ${data[userid].correct ? 'Correct' : 'Wrong Answer'}
+  <section class="hero is-success is-fullheight">
+    <div class="hero-head">
+      <nav class="level is-mobile">
+        <div class="level-item has-text-centered currentUser"></div>
+        <div class="level-item has-text-centered points"></div>
+        <div class="level-item has-text-centered numUsers"></div>
+        <div class="level-item has-text-centered spanish">
+          <div>
+            <p class="heading">Español</p>
+            <p class="title"><label class="switch">
+            <input name="es" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+            </p>
+          </div>
+        </div>
+      </nav>
+
+
+      <div class="login">
+        <div class="section">
+          <h1 class="title">User Name / Nombre</h1>
+          <input name="user" type="text" class="input is-large" required />
+          <div class="icons"></div>
+          <button class="button is-primary is-large login">Ready / Listo</button>
+        </div>
+      </div>
+
+      <div class="game is-hidden">
+
+        <div id='candy' class="is-hidden">
+          <div id='candy-loader'></div>
+        </div>
+
+        <div class="section game-start is-hidden has-text-centered">
+          <progress class="progress is-large is-info" value="100" max="100"></progress>
+
+          <div class="choices">
+
+          </div>
+
+          <p>
+            <button class="submitChoice button is-large is-danger">Submit</button>
+          </p>
+        </div>
+
+
+      </div>
+
+    </div>
+  </section>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    let socket = io();
+    let username, connected, userid;
+    let ES_MODE = false
+    let ESSelector = document.querySelector('input[name="es"]')
+    document.querySelector('button.login').addEventListener('click', setUsername)
+
+    window.addEventListener('DOMContentLoaded', ()=> {
+      document.querySelector('input[name="user"]').value = window.localStorage.getItem('username')
+    })
+
+    ESSelector.addEventListener('change', ()=> {
+      ES_MODE = ESSelector.checked
+    })
+
+    let choiceButton = document.querySelector('button.submitChoice');
+    choiceButton.addEventListener('click', submitChoice)
+    choiceButton.classList.add('is-hidden')
+
+    let choices = document.querySelector('.choices')
+    let progress = document.querySelector('progress')
+
+    let progressTimer = null
+
+
+    document.querySelector('div.icons').innerHTML = (function () {
+      let html = '';
+      let autoSelect = Math.floor(Math.random() * 24) + 1
+
+      for (let i = 1; i < 25; i++) {
+        let icon = `icons/${i}.png`
+        html += `<label for="${icon}">
+                    <input  type="radio"
+                            name="icon"
+                            value="${icon}"
+                            id="${icon}"
+                            ${ autoSelect === i ? 'checked' : ''}
+                    >
+                    <img src="${icon}"/>
+                  </label>`
+      }
+      return html
+    })()
+
+
+    function setUsername() {
+      username = document.querySelector('input[name="user"]')
+      icon = document.querySelector('input[name="icon"]:checked').value;
+
+      // If the username is valid
+      if (username.checkValidity()) {
+        // Tell the server your username
+        username = username.value
+        window.localStorage.setItem('username', username)
+        socket.emit('add user', { username, icon });
+        setCurrentUser({ username, icon })
+        hide('.login')
+
+        window.scrollTo(0, 0);
+      }
+    }
+
+
+    // Whenever the server emits 'login', log the login message
+    socket.on('login', function (data) {
+      connected = true;
+
+      userid = data.userid
+      updateUsers(data)
+      updatePoints(null)
+      show('.game')
+      // used to allow late joins without breaking the game
+      if (!data.gameInProgress) {
+        show('#candy')
+        document.querySelector('section.hero').id = 'loading'
+      } else {
+        document.querySelector('section.hero').id = ''
+        hide('#candy')
+        show('.game-start')
+        socket.emit('question timer')
+      }
+    });
+
+    // Whenever the server emits 'user joined', log it in the chat body
+    socket.on('user joined', function (data) {
+      updateUsers(data)
+    });
+
+
+    socket.on('question', function (data) {
+
+      document.querySelector('section.hero').id = ''
+      hide('#candy')
+      show('.game-start')
+
+      progressTimer = null
+      progress.value = 100;
+      updateProgressBar(data)
+      displayChoices(data)
+
+    });
+
+
+    socket.on('answer results', function (data) {
+      updatePoints(data)
+      displayIfCorrect(data)
+    });
+
+
+    function displayIfCorrect(data) {
+      const verbiageCorrect = ES_MODE ? 'Correcto' : 'Correct'
+      const verbiageWrong = ES_MODE ? 'Respuesta incorrecta' : 'Wrong Answer'
+      choices.innerHTML = `<h1 class="title is-1">
+                        ${data[userid].correct ? verbiageCorrect : verbiageWrong}
                         </h1>
                         <h2 class="title is-2">
                         ${data[userid].answerSelected}
                         </h2>
                     `
-            }
-            
-            function submitChoice(){
-                let answer = document.querySelector('input[name="answer"]:checked').value;
-                
-                if (answer) {                    
-                    socket.emit('answer', {answer});
-                    closeChoice()
-                }
-                
-            }
-            
-            function closeChoice() {
-                choiceButton.classList.add('is-hidden')
-                choices.innerHTML = ''  
-            }
+    }
 
-            function displayChoices(data){
-                
-                choices.innerHTML = ''
-                if ( data.choices && data.choices.length ) {
-                     choiceButton.classList.remove('is-hidden')
-                     let html = '<ul>';
-                 
-                    for( let i = 0; i <  data.choices.length; i++ ) {
-                     let answer = data.choices[i]
-                     html += `<li>
-                                <input  type="radio" 
-                                        name="answer" 
-                                        value="${answer}" 
+    function submitChoice() {
+      let answer = document.querySelector('input[name="answer"]:checked').value;
+
+      if (answer) {
+        socket.emit('answer', { answer });
+        closeChoice()
+      }
+
+    }
+
+    function closeChoice() {
+      choiceButton.classList.add('is-hidden')
+      choices.innerHTML = ''
+    }
+
+    function displayChoices(data) {
+
+      choices.innerHTML = ''
+      if (data.choices && data.choices.length) {
+        let dataChoices = ES_MODE ? data.choicesES : data.choices
+        choiceButton.classList.remove('is-hidden')
+        let html = '<ul>';
+
+        for (let i = 0; i < dataChoices.length; i++) {
+          let answer = dataChoices[i]
+          html += `<li>
+                                <input  type="radio"
+                                        name="answer"
+                                        value="${answer}"
                                         id="${answer}"
                                 > <label for="${answer}" class="label">
-                                ${answer} 
+                                ${answer}
                             </label></li>`
-                     }
-                     html += '</ul>'
-                     choices.innerHTML = html
-                }
-            }
+        }
+        html += '</ul>'
+        choices.innerHTML = html
+      }
+    }
 
-            function updateProgressBar(data){
-                
-                let now = new Date().getTime();
-                var pct = Math.floor(100 * (data.endTime - now) / data.totalTime);
-                if (pct < 2 || isNaN(pct)) {
-                    pct = 0;
-                }
-                progress.value = pct;
-                if (pct < 20) {
-                   progress.classList.remove('is-info')
-                   progress.classList.add('is-danger');
-                } 
-                if (pct < 1) {
-                    // if 0 or negative, no need to update again.
-                    closeChoice();
-                    progress.classList.remove('is-danger')
-                    progress.classList.add('is-info');
-                    socket.emit('question timer')
-                    return;
-                }
-            
-               progressTimer = setTimeout(updateProgressBar.bind(this, data), 100);
-                
-            }
+    function updateProgressBar(data) {
 
-            function updateUsers(data) {
-                if (data.numUsers)
-                    document.querySelector('.numUsers').innerHTML = `
+      let now = new Date().getTime();
+      let pct = Math.floor(100 * (data.endTime - now) / data.totalTime);
+      if (pct < 2 || isNaN(pct)) {
+        pct = 0;
+      }
+      progress.value = pct;
+      if (pct < 20) {
+        progress.classList.remove('is-info')
+        progress.classList.add('is-danger');
+      }
+      if (pct < 1) {
+        // if 0 or negative, no need to update again.
+        closeChoice();
+        progress.classList.remove('is-danger')
+        progress.classList.add('is-info');
+        socket.emit('question timer')
+        return;
+      }
+
+      progressTimer = setTimeout(updateProgressBar.bind(this, data), 100);
+
+    }
+
+    function updateUsers(data) {
+      if (data.numUsers)
+        document.querySelector('.numUsers').innerHTML = `
                         <div>
                             <p class="heading">Players</p>
                             <p class="title">${data.numUsers}</p>
                         </div> `;
-            }
-            
-            function updatePoints(data) {           
-                    document.querySelector('.points').innerHTML = `
+    }
+
+    function updatePoints(data) {
+      document.querySelector('.points').innerHTML = `
                         <div>
                             <p class="heading">Answered Correctly</p>
                             <p class="title">${data ? data[userid].points : 0}</p>
                         </div> `;
-            }
-            
-            function setCurrentUser(data) {
-                if (data.username && data.icon)
-                    document.querySelector('.currentUser').innerHTML = `
+    }
+
+    function setCurrentUser(data) {
+      if (data.username && data.icon)
+        document.querySelector('.currentUser').innerHTML = `
                         <div>
                             <p class="heading">${data.username}</p>
                             <p class="title"><img src="${data.icon}" class="image is-48x48" /> </p>
                         </div> `;
-            }
-            
-            function hide(selector){
-                document.querySelector(selector).classList.add('is-hidden')
-            }
-            
-            function show(selector){
-                document.querySelector(selector).classList.remove('is-hidden')
-            }
-        </script>
-    </body>
+    }
+
+    function hide(selector) {
+      document.querySelector(selector).classList.add('is-hidden')
+    }
+
+    function show(selector) {
+      document.querySelector(selector).classList.remove('is-hidden')
+    }
+  </script>
+</body>
+
 </html>

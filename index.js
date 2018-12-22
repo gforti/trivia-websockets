@@ -1,28 +1,30 @@
 // Setup basic express server
-var express = require('express')
-var app = express()
-var path = require('path')
-var server = require('http').createServer(app)
-var io = require('socket.io')(server)
-var port = process.env.PORT || 3000
+let express = require('express')
+let app = express()
+let path = require('path')
+let server = require('http').createServer(app)
+let io = require('socket.io')(server)
+let port = process.env.PORT || 3000
 const host_ip = require('./host-ip')
-var gameUrl = `http://${host_ip}:${port}`
+let gameUrl = `http://${host_ip}:${port}`
 
 
-var questions = []
-var curQuestion = 0;
-var totalQuestions = 0;
+let questions = []
+let curQuestion = 0;
+let totalQuestions = 0;
 
-var nextQuestionDelayMs = 5000; //5secs // how long are players 'warned' next question is coming
-var timeToAnswerMs = 15000; // 15secs // how long players have to answer question
-var timeToEnjoyAnswerMs = 10000; //10secs // how long players have to read answer
+let nextQuestionDelayMs = 5000; //5secs // how long are players 'warned' next question is coming
+let timeToAnswerMs = 15000; // 15secs // how long players have to answer question
+let timeToEnjoyAnswerMs = 10000; //10secs // how long players have to read answer
 
-var answerData;
-var answerDetails;
-var players = {};
+let answerData;
+let answerDataES;
+let answerDetails;
+let answerDetailsES;
+let players = {};
 
-var gameInProgress = false
-var questionPhase = 1
+let gameInProgress = false
+let questionPhase = 1
 
 
 server.listen(port, function () {
@@ -36,22 +38,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 io.on('connection', function (socket) {
-  var addedUser = false;
+  let addedUser = false;
 
 
   socket.on('host', function () {
     socket.emit('host-game-info', {
       gameUrl: gameUrl,
       numUsers: Object.keys(players).length,
-       players : players,
-       gameInProgress: gameInProgress
+      players: players,
+      gameInProgress: gameInProgress
     });
   });
 
 
   // when the client emits 'add user', this listens and executes
   socket.on('add user', function (data) {
-    if ( players[socket.id]) return;
+    if (players[socket.id]) return;
 
     // we store the username in the socket session for this client
 
@@ -64,62 +66,62 @@ io.on('connection', function (socket) {
 
     addedUser = true;
     socket.emit('login', {
-        userid: socket.id,
-        numUsers: Object.keys(players).length,
-        gameInProgress: gameInProgress
+      userid: socket.id,
+      numUsers: Object.keys(players).length,
+      gameInProgress: gameInProgress
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
       numUsers: Object.keys(players).length,
-      players : players
+      players: players
     });
   });
 
 
 
-    socket.on('start', function (data) {
-        let round = `./round${data.round}`
-        questions = shuffle(require(round))
-        totalQuestions = questions.length;
-        curQuestion = 0;
-        resetPlayerNewRound()
-        emitNewQuestion();
-    });
+  socket.on('start', function (data) {
+    let round = `./round${data.round}`
+    questions = shuffle(require(round))
+    totalQuestions = questions.length;
+    curQuestion = 0;
+    resetPlayerNewRound()
+    emitNewQuestion();
+  });
 
 
 
-    socket.on('answer', function (data) {
-        if (!players[socket.id]) return
-        players[socket.id].correct = false
-        players[socket.id].answerSelected = data.answer
-        if ( answerData == data.answer) {
-            players[socket.id].correct = true
-            players[socket.id].points++
-        }
+  socket.on('answer', function (data) {
+    if (!players[socket.id]) return
+    players[socket.id].correct = false
+    players[socket.id].answerSelected = data.answer
+    if (answerData == data.answer || answerDataES == data.answer) {
+      players[socket.id].correct = true
+      players[socket.id].points++
+    }
 
-    });
+  });
 
 
-    socket.on('question timer', function () {
-        if (!players[socket.id]) return
-        if ( questionPhase === 1 ) {
-            players[socket.id].questionReady = true
-        } else {
-            players[socket.id].questionDone = true
-        }
-    });
+  socket.on('question timer', function () {
+    if (!players[socket.id]) return
+    if (questionPhase === 1) {
+      players[socket.id].questionReady = true
+    } else {
+      players[socket.id].questionDone = true
+    }
+  });
 
 
 
   // when the user disconnects.. perform this
   socket.on('disconnect', function () {
     if (players[socket.id]) {
-     delete players[socket.id]
+      delete players[socket.id]
 
       // echo globally that this client has left
       socket.broadcast.emit('user joined', {
         numUsers: Object.keys(players).length,
-        players : players
+        players: players
       });
 
 
@@ -130,143 +132,152 @@ io.on('connection', function (socket) {
 
 
 function resetPlayerWinners() {
-    Object.keys(players)
-                    .forEach(id => {
-                        players[id].correct = false
-                        players[id].questionDone = false
-                        players[id].questionReady = false
-                        players[id].answerSelected = ''
-                    })
+  Object.keys(players)
+    .forEach(id => {
+      players[id].correct = false
+      players[id].questionDone = false
+      players[id].questionReady = false
+      players[id].answerSelected = ''
+    })
 }
 
 
 function resetPlayerNewRound() {
-    gameInProgress = true
-    Object.keys(players)
-                    .forEach(id => {
-                        players[id].points = 0
-                    })
+  gameInProgress = true
+  Object.keys(players)
+    .forEach(id => {
+      players[id].points = 0
+    })
 }
 
 
 function emitWinner() {
 
-    // todo: get all winners or set game to give point to just first who answers
-    // maybe just get a list of winners and display the winners differently
+  // todo: get all winners or set game to give point to just first who answers
+  // maybe just get a list of winners and display the winners differently
 
-    const mostAnswered = Math.max.apply(Math,Object.keys(players)
-                .map(key => players[key].points))
+  const mostAnswered = Math.max.apply(Math, Object.keys(players)
+    .map(key => players[key].points))
 
-    var winners = Object.keys(players)
-                .filter(key => players[key].points === mostAnswered)
-                .map(key => players[key].username)
-    gameInProgress = false
+  let winners = Object.keys(players)
+    .filter(key => players[key].points === mostAnswered)
+    .map(key => players[key].username)
+  gameInProgress = false
 
-    io.sockets.emit('winner', winners);
+  io.sockets.emit('winner', winners);
 
 }
 
 function emitNewQuestion() {
 
-    if ( curQuestion < totalQuestions ) {
+  if (curQuestion < totalQuestions) {
 
-        resetPlayerWinners()
-        questionPhase = 1
-        io.sockets.emit('question', {
-            totalTime: nextQuestionDelayMs,
-            endTime: new Date().getTime() + nextQuestionDelayMs,
-            choices: [],
-            question:'Next Question ...',
-            img: 'loading.gif',
-            questionsLeft: `${curQuestion+1}/${totalQuestions}`
-        });
+    resetPlayerWinners()
+    questionPhase = 1
+    io.sockets.emit('question', {
+      totalTime: nextQuestionDelayMs,
+      endTime: new Date().getTime() + nextQuestionDelayMs,
+      choices: [],
+      choicesES: [],
+      question: 'Next Question ...',
+      questionES: 'Próxima pregunta ...',
+      img: 'loading.gif',
+      questionsLeft: `${curQuestion + 1}/${totalQuestions}`
+    });
 
-        checkQuestionReady()
-    } else {
-        emitWinner()
-    }
+    checkQuestionReady()
+  } else {
+    emitWinner()
+  }
 
 }
 
 
 function checkQuestionReady(time) {
 
-    time = time || nextQuestionDelayMs
-    setTimeout(function(){
-        var canEmitQuestion = Object.keys(players).every(key =>{
-            return players[key].questionReady === true
-        });
-        if (canEmitQuestion) {
-            if (questions[curQuestion]) {
-                var q = questions[curQuestion];
-                var timeToAnswer = q.timeToAnswerMs || timeToAnswerMs
-                q.endTime = new Date().getTime() + timeToAnswer;
-                q.totalTime = timeToAnswer;
+  time = time || nextQuestionDelayMs
+  setTimeout(function () {
+    let canEmitQuestion = Object.keys(players).every(key => {
+      return players[key].questionReady === true
+    });
+    if (canEmitQuestion) {
+      if (questions[curQuestion]) {
+        let q = questions[curQuestion];
+        let timeToAnswer = q.timeToAnswerMs || timeToAnswerMs
+        q.endTime = new Date().getTime() + timeToAnswer;
+        q.totalTime = timeToAnswer;
 
-                answerData = q.answer
-                answerDetails = q.details || ''
+        answerData = q.answer
+        answerDataES = q.answerES || ''
+        answerDetails = q.details || ''
+        answerDetailsES = q.detailsES || ''
 
-                q.choices = shuffle(q.choices)
-                q.questionsLeft = `${curQuestion+1}/${totalQuestions}`
-                io.sockets.emit('question', q);
-
-                curQuestion++;
-
-               questionPhase = 2
-               checkQuestionTimer(timeToAnswer)
-            }
-        } else {
-            checkQuestionReady(200)
+        q.choices = shuffle(q.choices)
+        if(q.choicesES) {
+          q.choicesES = shuffle(q.choicesES)
         }
-    }, time);
+        q.questionsLeft = `${curQuestion + 1}/${totalQuestions}`
+        io.sockets.emit('question', q);
+
+        curQuestion++;
+
+        questionPhase = 2
+        checkQuestionTimer(timeToAnswer)
+      }
+    } else {
+      checkQuestionReady(200)
+    }
+  }, time);
 
 }
 
 function checkQuestionTimer(time) {
 
-    time = time || timeToAnswerMs
-    setTimeout(function(){
-        var canEmitAnswer = Object.keys(players).every(key =>{
-            return players[key].questionDone === true
-        });
-        if (canEmitAnswer) {
-            emitAnswer();
-        } else {
-            checkQuestionTimer(200)
-        }
-    }, time);
+  time = time || timeToAnswerMs
+  setTimeout(function () {
+    let canEmitAnswer = Object.keys(players).every(key => {
+      return players[key].questionDone === true
+    });
+    if (canEmitAnswer) {
+      emitAnswer();
+    } else {
+      checkQuestionTimer(200)
+    }
+  }, time);
 
 }
 
 
 function emitAnswer() {
 
-    let data = {}
-    data.correctAnswer = answerData;
-    data.answerDetails = answerDetails;
-    data.endTime = new Date().getTime() + timeToEnjoyAnswerMs;
-    data.totalTime = timeToEnjoyAnswerMs;
+  let data = {}
+  data.correctAnswer = answerData;
+  data.correctAnswerES = answerDataES;
+  data.answerDetails = answerDetails;
+  data.answerDetailsES = answerDetailsES;
+  data.endTime = new Date().getTime() + timeToEnjoyAnswerMs;
+  data.totalTime = timeToEnjoyAnswerMs;
 
-    io.sockets.emit('correct answer', data); // emit to everyone
+  io.sockets.emit('correct answer', data); // emit to everyone
 
-    io.sockets.emit('answer results', players);
+  io.sockets.emit('answer results', players);
 
-    var leader = Object.keys(players)
-                    .map(key => players[key])
-                    .reduce((prev, current) => (prev.points > current.points) ? prev : current, {})
+  let leader = Object.keys(players)
+    .map(key => players[key])
+    .reduce((prev, current) => (prev.points > current.points) ? prev : current, {})
 
-    io.sockets.emit('leader', leader);
+  io.sockets.emit('leader', leader);
 
 
-    setTimeout(function(){
-        emitNewQuestion();
-    }, timeToEnjoyAnswerMs);
+  setTimeout(function () {
+    emitNewQuestion();
+  }, timeToEnjoyAnswerMs);
 
 }
 
 
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  let currentIndex = array.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
