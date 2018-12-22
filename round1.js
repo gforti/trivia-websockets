@@ -1,5 +1,6 @@
 module.exports = [{
     question: "What holiday movie sequel includes a cameo by Donald Trump?",
+    questionES: "¿Qué secuela de la película de vacaciones incluye un cameo de Donald Trump?",
     choices: [
         'Home Alone 2',
         'Home Alone',

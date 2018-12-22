@@ -19,8 +19,8 @@ module.exports = [
     details: 'This is a great Holiday!',
     detailsES: 'Esta es una gran fiesta!',
     img: 'snow.png'
-  }
-  , {
+  },
+  {
     question: "Choose the answer correct",
     questionES: "Elige la respuesta Correcto",
     choices: [
@@ -38,5 +38,17 @@ module.exports = [
     answer: 'Correct',
     answerES: 'Correcto',
     img: 'Christmas-Song.png'
-  }
+  },
+  {
+    question: "Choose the answer correct",
+    questionES: "Elige la respuesta Correcto",
+    choices: [
+      'Correct',
+      'Incorrect',
+      'Wrong',
+      'Bad Answer'
+    ],
+    answer: 'Correct',
+    img: 'decoration.png'
+  },
 ];

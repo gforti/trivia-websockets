@@ -300,3 +300,12 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+.level.is-mobile {
+  flex-wrap: wrap;
+}
+
+.section-short {
+    padding: 1rem 1.5rem;
+}

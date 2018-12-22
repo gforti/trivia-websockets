@@ -33,10 +33,10 @@
 
       <div class="login">
         <div class="section">
-          <h1 class="title">User Name / Nombre</h1>
+          <h1 class="title">User Name</h1>
           <input name="user" type="text" class="input is-large" required />
           <div class="icons"></div>
-          <button class="button is-primary is-large login">Ready / Listo</button>
+          <button class="button is-link is-large login">Ready</button>
         </div>
       </div>
 
@@ -46,7 +46,7 @@
           <div id='candy-loader'></div>
         </div>
 
-        <div class="section game-start is-hidden has-text-centered">
+        <div class="section-short game-start is-hidden has-text-centered">
           <progress class="progress is-large is-info" value="100" max="100"></progress>
 
           <div class="choices">
@@ -70,6 +70,7 @@
     let username, connected, userid;
     let ES_MODE = false
     let ESSelector = document.querySelector('input[name="es"]')
+    let currentData
     document.querySelector('button.login').addEventListener('click', setUsername)
 
     window.addEventListener('DOMContentLoaded', ()=> {
@@ -78,6 +79,28 @@
 
     ESSelector.addEventListener('change', ()=> {
       ES_MODE = ESSelector.checked
+      choiceButton.innerHTML = ES_MODE ? 'Enviar' : 'Submit'
+
+      const nameHeader = document.querySelector('body > section > div > div.login > div > h1')
+      if(nameHeader) {
+        nameHeader.innerHTML = ES_MODE ? 'Nombre' : 'User Name'
+      }
+
+      const startBtn = document.querySelector('body > section > div > div.login > div > button')
+      if(startBtn) {
+        startBtn.innerHTML = ES_MODE ? 'Listo' : 'Ready'
+      }
+
+      const playerHeader = document.querySelector('.numUsers > div > p.heading')
+      if(playerHeader) {
+        playerHeader.innerHTML = ES_MODE ? 'Jugadores' : 'Players'
+      }
+
+      const playerPoints = document.querySelector('.points > div > p.heading')
+      if(playerPoints) {
+        playerPoints.innerHTML = ES_MODE ? 'Puntos' : 'Points'
+      }
+
     })
 
     let choiceButton = document.querySelector('button.submitChoice');
@@ -205,7 +228,10 @@
 
       choices.innerHTML = ''
       if (data.choices && data.choices.length) {
-        let dataChoices = ES_MODE ? data.choicesES : data.choices
+        let dataChoices = data.choices
+        if (ES_MODE && data.choicesES && data.choicesES.length) {
+          dataChoices = data.choicesES
+        }
         choiceButton.classList.remove('is-hidden')
         let html = '<ul>';
 
@@ -254,7 +280,7 @@
       if (data.numUsers)
         document.querySelector('.numUsers').innerHTML = `
                         <div>
-                            <p class="heading">Players</p>
+                            <p class="heading">${ES_MODE ? 'Jugadores' : 'Players'}</p>
                             <p class="title">${data.numUsers}</p>
                         </div> `;
     }
@@ -262,7 +288,7 @@
     function updatePoints(data) {
       document.querySelector('.points').innerHTML = `
                         <div>
-                            <p class="heading">Answered Correctly</p>
+                            <p class="heading">${ES_MODE ? 'Puntos' : 'Points'}</p>
                             <p class="title">${data ? data[userid].points : 0}</p>
                         </div> `;
     }
