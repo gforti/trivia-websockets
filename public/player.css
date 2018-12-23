@@ -304,6 +304,7 @@ input:checked + .slider:before {
 
 .level.is-mobile {
   flex-wrap: wrap;
+  overflow: auto;
 }
 
 .section-short {

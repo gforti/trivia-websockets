@@ -711,7 +711,7 @@
       </nav>
 
 
-      <div class="section game-start has-text-centered">
+      <div class="section-short game-start has-text-centered">
         <progress class="progress is-large is-info" value="100" max="100"></progress>
 
         <div class="question">
@@ -765,8 +765,6 @@
       document.querySelector('.players').classList.add('is-hidden')
       document.querySelector('section.hero').classList.remove('is-hidden')
     }
-
-
 
     socket.on('winner', function (data) {
       GAME_DONE = true
@@ -871,13 +869,13 @@
     }
 
     function displayAnswer(data) {
-      playTrack()
+
       if (triviaTracks.hasOwnProperty(questionSong)) {
         triviaTracks[questionSong].pause();
         triviaTracks[questionSong].currentTime = 0;
         questionSong = ''
       }
-
+      playTrack()
       let html = `<h1 class="title is-1">${data.correctAnswer}</h1>`
 
       if (data.answerDetails && data.answerDetails.length) {
@@ -960,8 +958,10 @@
     }
 
     function playTrack() {
+      if(questionSong.length) return
       if (!GAME_DONE) {
         tracks[currentTrack].play()
+        tracks[currentTrack].volume = 0.5;
       } else {
         stopTrack()
         winnerTrack.play()

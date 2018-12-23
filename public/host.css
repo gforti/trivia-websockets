@@ -1,5 +1,5 @@
-body, html { 
-  background:  url('img/bg.gif') no-repeat bottom center fixed; 
+body, html {
+  background:  url('img/bg.gif') no-repeat bottom center fixed;
   background-size: cover;
 }
 
@@ -1994,7 +1994,7 @@ body, html {
     padding: 0.4rem
 }
 
-.players .title{ 
+.players .title{
     color: white;
 }
 
@@ -2023,13 +2023,13 @@ body, html {
                 padding: 1rem;
             }
 
-     
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
 
 @keyframes color_change {
     from { color: red; }
@@ -2060,4 +2060,8 @@ body, html {
 .where h1 {
     letter-spacing: 0.1rem;
     font-weight: bold;
+}
+
+.section-short {
+    padding: 1rem 1.5rem;
 }
