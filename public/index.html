@@ -70,7 +70,10 @@
     let username, connected, userid;
     let ES_MODE = false
     let ESSelector = document.querySelector('input[name="es"]')
-    let currentData
+    let allCurrenttData
+    let currentChoiceData
+    let gameInProgress = false
+
     document.querySelector('button.login').addEventListener('click', setUsername)
 
     window.addEventListener('DOMContentLoaded', ()=> {
@@ -99,6 +102,14 @@
       const playerPoints = document.querySelector('.points > div > p.heading')
       if(playerPoints) {
         playerPoints.innerHTML = ES_MODE ? 'Puntos' : 'Points'
+      }
+
+      if (gameInProgress) {
+        if (choiceButton.classList.contains('is-hidden') && progress.value <= 0) {
+          displayIfCorrect()
+        } else if(!choiceButton.classList.contains('is-hidden')) {
+          displayChoices()
+        }
       }
 
     })
@@ -160,6 +171,7 @@
       updatePoints(null)
       show('.game')
       // used to allow late joins without breaking the game
+      gameInProgress = data.gameInProgress
       if (!data.gameInProgress) {
         show('#candy')
         document.querySelector('section.hero').id = 'loading'
@@ -180,33 +192,43 @@
     socket.on('question', function (data) {
 
       document.querySelector('section.hero').id = ''
+      gameInProgress = true
       hide('#candy')
       show('.game-start')
 
       progressTimer = null
       progress.value = 100;
       updateProgressBar(data)
-      displayChoices(data)
+      currentChoiceData = data
+      displayChoices()
 
     });
 
 
     socket.on('answer results', function (data) {
+      allCurrenttData = data
+
       updatePoints(data)
-      displayIfCorrect(data)
+      displayIfCorrect()
     });
 
+    socket.on('winner', function (data) {
+      gameInProgress = false
+    })
 
-    function displayIfCorrect(data) {
-      const verbiageCorrect = ES_MODE ? 'Correcto' : 'Correct'
-      const verbiageWrong = ES_MODE ? 'Respuesta incorrecta' : 'Wrong Answer'
-      choices.innerHTML = `<h1 class="title is-1">
-                        ${data[userid].correct ? verbiageCorrect : verbiageWrong}
-                        </h1>
-                        <h2 class="title is-2">
-                        ${data[userid].answerSelected}
-                        </h2>
-                    `
+
+    function displayIfCorrect() {
+      if (allCurrenttData) {
+        const verbiageCorrect = ES_MODE ? 'Correcto' : 'Correct'
+        const verbiageWrong = ES_MODE ? 'Respuesta incorrecta' : 'Wrong Answer'
+        choices.innerHTML = `<h1 class="title is-1">
+                          ${allCurrenttData[userid].correct ? verbiageCorrect : verbiageWrong}
+                          </h1>
+                          <h2 class="title is-2">
+                          ${allCurrenttData[userid].answerSelected}
+                          </h2>
+                      `
+      }
     }
 
     function submitChoice() {
@@ -224,13 +246,13 @@
       choices.innerHTML = ''
     }
 
-    function displayChoices(data) {
+    function displayChoices() {
 
       choices.innerHTML = ''
-      if (data.choices && data.choices.length) {
-        let dataChoices = data.choices
-        if (ES_MODE && data.choicesES && data.choicesES.length) {
-          dataChoices = data.choicesES
+      if (currentChoiceData && currentChoiceData.choices && currentChoiceData.choices.length) {
+        let dataChoices = currentChoiceData.choices
+        if (ES_MODE && currentChoiceData.choicesES && currentChoiceData.choicesES.length) {
+          dataChoices = currentChoiceData.choicesES
         }
         choiceButton.classList.remove('is-hidden')
         let html = '<ul>';
@@ -241,8 +263,8 @@
                                 <input  type="radio"
                                         name="answer"
                                         value="${answer}"
-                                        id="${answer}"
-                                > <label for="${answer}" class="label">
+                                        id="id_${i}_${answer}"
+                                > <label for="id_${i}_${answer}" class="label">
                                 ${answer}
                             </label></li>`
         }
