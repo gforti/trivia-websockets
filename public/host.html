@@ -854,16 +854,18 @@
 
 
     function displayQuestion(data) {
-      let html = `<h1 class="title is-1">${data.question}</h1>`
+      let html = `<h1 class="title is-2">${data.question}</h1>`
       if (data.questionES && data.questionES.length)
-        html += `<h1 class="title is-1">${data.questionES}</h1>`
+        html += `<h1 class="title is-2">${data.questionES}</h1>`
       if (data.img && data.img.length)
         html += `<p class="has-text-centered"><img src="img/${data.img}" /></p>`
       if (data.music && data.music.length) {
         stopTrack();
         questionSong = data.music
-        if (triviaTracks.hasOwnProperty(questionSong))
+        if (triviaTracks.hasOwnProperty(questionSong)) {
+          triviaTracks[questionSong].volume = 1
           triviaTracks[questionSong].play()
+        }
       }
       document.querySelector('.question').innerHTML = html
     }
@@ -894,21 +896,19 @@
 
     function displayLeader(data) {
       document.querySelector('.leader').innerHTML = `
-                        <div>
-                            <p class="heading">Leading<br />${data && data.username ? data.username : 'unknown'}</p>
-                            <p class="title"><img src="${data && data.icon ? data.icon : 'icons/1.png'}" class="image is-48x48" /> </p>
-                        </div> `;
+        <div>
+            <p class="heading">Leading<br />${data && data.username ? data.username : 'unknown'}</p>
+            <p class="title"><img src="${data && data.icon ? data.icon : 'icons/1.png'}" class="image is-48x48" /> </p>
+        </div> `
     }
 
     function updatePoints(data) {
       document.querySelector('.points').innerHTML = `
-                        <div>
-                            <p class="heading">Answered Correctly</p>
-                            <p class="title">${data && data.points ? data.points : 0}</p>
-                        </div> `;
+        <div>
+            <p class="heading">Answered Correctly</p>
+            <p class="title">${data && data.points ? data.points : 0}</p>
+        </div> `
     }
-
-
 
 
     function updateProgressBar(data) {
@@ -931,12 +931,8 @@
         return;
       }
 
-
       setTimeout(updateProgressBar.bind(this, data), 100);
-
     }
-
-
 
     let winnerTrack = new Audio(`tracks/winner.mp3`)
     let tracks = [];
@@ -973,9 +969,7 @@
       playTrack();
     }
 
-
     document.addEventListener('click', playTrack)
-
 
     let triviaTracks = {
       'we-wish-you-a-merry-christmas.mp3': new Audio('trivia-songs/we-wish-you-a-merry-christmas.mp3'),

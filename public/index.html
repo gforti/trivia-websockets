@@ -153,7 +153,8 @@
         // Tell the server your username
         username = username.value
         window.localStorage.setItem('username', username)
-        socket.emit('add user', { username, icon });
+        const storedUserid = window.sessionStorage.getItem('userid')
+        socket.emit('add user', { username, icon, userid: storedUserid });
         setCurrentUser({ username, icon })
         hide('.login')
 
@@ -167,8 +168,9 @@
       connected = true;
 
       userid = data.userid
+      window.sessionStorage.setItem('userid', userid)
       updateUsers(data)
-      updatePoints(null)
+      updatePoints(data)
       show('.game')
       // used to allow late joins without breaking the game
       gameInProgress = data.gameInProgress
@@ -207,10 +209,13 @@
 
     socket.on('answer results', function (data) {
       allCurrenttData = data
-
       updatePoints(data)
       displayIfCorrect()
-    });
+    })
+
+    socket.on('new game', function (data) {
+      updatePoints(data)
+    })
 
     socket.on('winner', function (data) {
       gameInProgress = false
@@ -308,11 +313,19 @@
     }
 
     function updatePoints(data) {
+      let points = 0
+      if(data) {
+        if (data.points) {
+          points = data.points
+        } else if(data[userid]) {
+          points = data[userid].points
+        }
+      }
       document.querySelector('.points').innerHTML = `
-                        <div>
-                            <p class="heading">${ES_MODE ? 'Puntos' : 'Points'}</p>
-                            <p class="title">${data ? data[userid].points : 0}</p>
-                        </div> `;
+        <div>
+            <p class="heading">${ES_MODE ? 'Puntos' : 'Points'}</p>
+            <p class="title">${points}</p>
+        </div> `
     }
 
     function setCurrentUser(data) {

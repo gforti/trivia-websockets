@@ -21,7 +21,8 @@ let answerData;
 let answerDataES;
 let answerDetails;
 let answerDetailsES;
-let players = {};
+let players = {}
+let removedPlayers = {}
 
 let gameInProgress = false
 let questionPhase = 1
@@ -48,6 +49,9 @@ io.on('connection', function (socket) {
       players: players,
       gameInProgress: gameInProgress
     });
+    if(gameInProgress) {
+      emitLeader()
+    }
   });
 
 
@@ -56,25 +60,38 @@ io.on('connection', function (socket) {
     if (players[socket.id]) return;
 
     // we store the username in the socket session for this client
+    if (data.userid && removedPlayers[data.userid]) {
+      // allow session reconnects
+      players[socket.id] = Object.assign({}, removedPlayers[data.userid])
+      players[socket.id].username = data.username
+      players[socket.id].icon = data.icon
+    } else {
+      data.points = 0
+      players[socket.id] = Object.assign({}, data)
+    }
 
-    data.points = 0
-    data.correct = false
-    data.questionDone = false
-    data.questionReady = false
-    data.answerSelected = ''
-    players[socket.id] = Object.assign({}, data);
+    players[socket.id].correct = false
+    players[socket.id].questionDone = false
+    players[socket.id].questionReady = false
+    players[socket.id].answerSelected = ''
 
     addedUser = true;
     socket.emit('login', {
       userid: socket.id,
       numUsers: Object.keys(players).length,
-      gameInProgress: gameInProgress
+      gameInProgress: gameInProgress,
+      points: players[socket.id].points
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
       numUsers: Object.keys(players).length,
       players: players
     });
+
+    if(gameInProgress) {
+      emitLeader()
+    }
+
   });
 
 
@@ -84,8 +101,10 @@ io.on('connection', function (socket) {
     questions = shuffle(require(round))
     totalQuestions = questions.length;
     curQuestion = 0;
+    removedPlayers = {}
     resetPlayerNewRound()
-    emitNewQuestion();
+    emitNewQuestion()
+    io.sockets.emit('new game', players)
   });
 
 
@@ -116,6 +135,7 @@ io.on('connection', function (socket) {
   // when the user disconnects.. perform this
   socket.on('disconnect', function () {
     if (players[socket.id]) {
+      removedPlayers[socket.id] = Object.assign({}, players[socket.id])
       delete players[socket.id]
 
       // echo globally that this client has left
@@ -262,12 +282,7 @@ function emitAnswer() {
 
   io.sockets.emit('answer results', players);
 
-  let leader = Object.keys(players)
-    .map(key => players[key])
-    .reduce((prev, current) => (prev.points > current.points) ? prev : current, {})
-
-  io.sockets.emit('leader', leader);
-
+  emitLeader()
 
   setTimeout(function () {
     emitNewQuestion();
@@ -275,6 +290,14 @@ function emitAnswer() {
 
 }
 
+
+function emitLeader() {
+  let leader = Object.keys(players)
+    .map(key => players[key])
+    .reduce((prev, current) => (prev.points > current.points) ? prev : current, {})
+
+  io.sockets.emit('leader', leader);
+}
 
 function shuffle(array) {
   let currentIndex = array.length, temporaryValue, randomIndex;
